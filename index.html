@@ -1,0 +1,1347 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THANH TRA VĨ MÔ — MLN122</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Be+Vietnam+Pro:wght@400;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #141414;
+        --paper: #f4f2ec;
+        --gold: #ffc800;
+        --red: #ee3a2c;
+        --white: #ffffff;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        background-color: var(--paper);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Cpath d='M13 10h2v3h3v2h-3v3h-2v-3h-3v-2h3z' fill='%23141414' fill-opacity='0.06'/%3E%3C/svg%3E");
+        color: var(--ink);
+        font-family: "Be Vietnam Pro", sans-serif;
+        overflow: hidden;
+      }
+      button {
+        font-family: inherit;
+        cursor: pointer;
+      }
+      button:focus-visible {
+        outline: 4px solid var(--ink);
+        outline-offset: 4px;
+      }
+
+      /* ============ SCREEN FLASH ============ */
+      #flash {
+        position: fixed;
+        inset: 0;
+        z-index: 60;
+        pointer-events: none;
+        opacity: 0;
+        background: var(--gold);
+      }
+
+      /* ============ PHASE BANNER ============ */
+      #banner {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 55;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      #banner-inner {
+        background: var(--ink);
+        color: var(--gold);
+        border-top: 5px solid var(--ink);
+        border-bottom: 5px solid var(--ink);
+        padding: 20px 0;
+        text-align: center;
+        transform: translateX(-105%);
+      }
+      #banner-title {
+        display: block;
+        font-family: "Anton", sans-serif;
+        font-size: clamp(30px, 6vw, 58px);
+        letter-spacing: 0.04em;
+        line-height: 1;
+      }
+      #banner-sub {
+        display: block;
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 700;
+        font-size: clamp(12px, 2vw, 17px);
+        letter-spacing: 0.3em;
+        margin-top: 8px;
+        color: var(--white);
+      }
+
+      /* ============ START SCREEN ============ */
+      #start {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        background-color: var(--paper);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Cpath d='M13 10h2v3h3v2h-3v3h-2v-3h-3v-2h3z' fill='%23141414' fill-opacity='0.06'/%3E%3C/svg%3E");
+        display: flex;
+        overflow-y: auto;
+        padding: 24px;
+      }
+      #start-inner {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+        text-align: center;
+      }
+      #start-badge {
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.18em;
+        background: var(--ink);
+        color: var(--gold);
+        padding: 10px 18px;
+        border: 3px solid var(--ink);
+        box-shadow: 5px 5px 0 var(--gold);
+        transform: rotate(-2deg);
+      }
+      #start h1 {
+        font-family: "Anton", sans-serif;
+        font-size: clamp(56px, 12vw, 132px);
+        line-height: 0.92;
+        letter-spacing: 0.01em;
+      }
+      #start h1 .hl {
+        margin-top: 35px;
+        background: var(--gold);
+        padding: 0 0.12em;
+        box-shadow: 8px 8px 0 var(--ink);
+        display: inline-block;
+      }
+      #start .lede {
+        max-width: 520px;
+        font-size: clamp(15px, 2.4vw, 18px);
+        font-weight: 600;
+        line-height: 1.5;
+      }
+      #start .lede strong {
+        background: var(--gold);
+        padding: 1px 5px;
+      }
+      #rules {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .rule {
+        background: var(--white);
+        border: 4px solid var(--ink);
+        box-shadow: 6px 6px 0 var(--ink);
+        padding: 14px 18px;
+        width: 172px;
+        text-align: left;
+      }
+      .rule b {
+        display: block;
+        font-family: "Anton", sans-serif;
+        font-size: 26px;
+        letter-spacing: 0.02em;
+      }
+      .rule span {
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 1.4;
+        display: block;
+        margin-top: 4px;
+      }
+      .rule .tag {
+        display: inline-block;
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 700;
+        font-size: 11px;
+        background: var(--red);
+        color: var(--ink);
+        border: 2px solid var(--ink);
+        padding: 2px 7px;
+        margin-bottom: 8px;
+        letter-spacing: 0.1em;
+      }
+      .rule:nth-child(2) .tag {
+        background: var(--gold);
+      }
+      .rule:nth-child(3) .tag {
+        background: var(--white);
+      }
+      #btn-start {
+        font-family: "Anton", sans-serif;
+        font-size: clamp(24px, 4vw, 36px);
+        letter-spacing: 0.05em;
+        background: var(--gold);
+        color: var(--ink);
+        border: 5px solid var(--ink);
+        box-shadow: 9px 9px 0 var(--ink);
+        padding: 18px 46px;
+        transition:
+          transform 0.12s,
+          box-shadow 0.12s;
+      }
+      #btn-start:hover {
+        transform: translate(-3px, -3px);
+        box-shadow: 12px 12px 0 var(--ink);
+      }
+      #btn-start:active {
+        transform: translate(6px, 6px);
+        box-shadow: 0 0 0 var(--ink);
+      }
+
+      /* ============ GAME LAYOUT ============ */
+      #app {
+        height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 14px 16px 16px;
+        gap: 12px;
+      }
+      #hud {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      #hearts {
+        display: flex;
+        gap: 8px;
+      }
+      .heart {
+        width: 40px;
+        height: 40px;
+        display: block;
+      }
+      .heart svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+      }
+      .heart path {
+        fill: var(--red);
+        stroke: var(--ink);
+        stroke-width: 2.4;
+      }
+      .heart.dead path {
+        fill: transparent;
+      }
+      #counter {
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 700;
+        font-size: clamp(13px, 2.4vw, 17px);
+        letter-spacing: 0.14em;
+        background: var(--ink);
+        color: var(--white);
+        padding: 8px 14px;
+      }
+      #hud-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      #score {
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 700;
+        font-size: clamp(13px, 2.4vw, 17px);
+        letter-spacing: 0.1em;
+        background: var(--gold);
+        border: 3px solid var(--ink);
+        box-shadow: 4px 4px 0 var(--ink);
+        padding: 6px 12px;
+      }
+      #btn-snd {
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 700;
+        font-size: 13px;
+        background: var(--white);
+        border: 3px solid var(--ink);
+        box-shadow: 4px 4px 0 var(--ink);
+        padding: 6px 10px;
+      }
+      #btn-snd:active {
+        transform: translate(3px, 3px);
+        box-shadow: 0 0 0 var(--ink);
+      }
+
+      #timer {
+        border: 4px solid var(--ink);
+        background: var(--white);
+        height: 28px;
+        box-shadow: 5px 5px 0 var(--ink);
+      }
+      #timer-fill {
+        height: 100%;
+        width: 100%;
+        background: var(--gold);
+        transform-origin: left center;
+        border-right: 4px solid var(--ink);
+      }
+      #timer-fill.hot {
+        background: var(--red);
+      }
+
+      #stage {
+        position: relative;
+        flex: 1;
+        min-height: 200px;
+      }
+      #gl {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      #truth {
+        position: absolute;
+        left: 50%;
+        bottom: 10px;
+        transform: translateX(-50%) scale(0);
+        background: var(--ink);
+        color: var(--gold);
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 700;
+        font-size: 15px;
+        letter-spacing: 0.12em;
+        padding: 9px 16px;
+        white-space: nowrap;
+        border: 3px solid var(--ink);
+        box-shadow: 5px 5px 0 var(--red);
+      }
+
+      #controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .verdict-btn {
+        border: 5px solid var(--ink);
+        box-shadow: 8px 8px 0 var(--ink);
+        padding: 16px 10px 14px;
+        text-align: center;
+        color: var(--ink);
+        transition:
+          transform 0.1s,
+          box-shadow 0.1s;
+        touch-action: manipulation;
+        user-select: none;
+      }
+      .verdict-btn small {
+        display: block;
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: 0.28em;
+      }
+      .verdict-btn b {
+        display: block;
+        font-family: "Anton", sans-serif;
+        font-weight: 400;
+        font-size: clamp(30px, 6vw, 50px);
+        line-height: 1.05;
+        letter-spacing: 0.04em;
+      }
+      .verdict-btn .key {
+        display: inline-block;
+        margin-top: 5px;
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 700;
+        font-size: 12px;
+        background: var(--ink);
+        color: var(--white);
+        padding: 2px 9px;
+      }
+      #btn-sai {
+        background: var(--red);
+      }
+      #btn-dung {
+        background: var(--gold);
+      }
+      .verdict-btn:hover {
+        transform: translate(-3px, -3px);
+        box-shadow: 11px 11px 0 var(--ink);
+      }
+      .verdict-btn:active {
+        transform: translate(6px, 6px);
+        box-shadow: 0 0 0 var(--ink);
+      }
+      .verdict-btn:disabled {
+        opacity: 0.6;
+        cursor: default;
+      }
+
+      /* ============ POPUP ============ */
+      #overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 70;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background: rgba(20, 20, 20, 0.62);
+      }
+      #popup {
+        width: min(540px, 94vw);
+        background: var(--white);
+        border: 6px solid var(--ink);
+        box-shadow: 16px 16px 0 var(--ink);
+      }
+      #popup-strip {
+        font-family: "Anton", sans-serif;
+        font-size: clamp(26px, 5vw, 40px);
+        letter-spacing: 0.03em;
+        text-align: center;
+        padding: 16px 12px;
+        background: var(--gold);
+        border-bottom: 6px solid var(--ink);
+      }
+      #popup.lose #popup-strip {
+        background: var(--red);
+      }
+      #popup-body {
+        padding: 22px 26px 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      #popup-verdict {
+        align-self: center;
+        transform: rotate(-4deg);
+        font-family: "Anton", sans-serif;
+        font-size: clamp(24px, 4.6vw, 34px);
+        letter-spacing: 0.05em;
+        border: 5px solid var(--ink);
+        padding: 8px 22px;
+        margin: 6px 0 4px;
+        background: var(--gold);
+        box-shadow: 6px 6px 0 var(--ink);
+      }
+      #popup.lose #popup-verdict {
+        background: var(--white);
+        color: var(--red);
+        border-color: var(--red);
+        box-shadow: 6px 6px 0 var(--red);
+      }
+      .stat {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 3px solid var(--ink);
+        padding: 10px 14px;
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: 0.06em;
+      }
+      .stat b {
+        font-size: 20px;
+        background: var(--gold);
+        padding: 0 8px;
+        border: 2px solid var(--ink);
+      }
+      #popup.lose .stat b {
+        background: var(--white);
+      }
+      #btn-again {
+        font-family: "Anton", sans-serif;
+        font-size: 26px;
+        letter-spacing: 0.05em;
+        background: var(--ink);
+        color: var(--gold);
+        border: 5px solid var(--ink);
+        box-shadow: 7px 7px 0 var(--gold);
+        padding: 14px 12px;
+        margin-top: 6px;
+        transition:
+          transform 0.1s,
+          box-shadow 0.1s;
+      }
+      #btn-again:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 9px 9px 0 var(--gold);
+      }
+      #btn-again:active {
+        transform: translate(5px, 5px);
+        box-shadow: 0 0 0 var(--gold);
+      }
+
+      .p {
+        position: fixed;
+        z-index: 65;
+        width: 12px;
+        height: 12px;
+        border: 2px solid var(--ink);
+        pointer-events: none;
+      }
+
+      @media (max-width: 640px) {
+        #app {
+          padding: 10px 10px 12px;
+          gap: 10px;
+        }
+        .heart {
+          width: 32px;
+          height: 32px;
+        }
+        .rule {
+          width: 150px;
+          padding: 11px 13px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .verdict-btn,
+        #btn-start,
+        #btn-again {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="flash"></div>
+    <div id="banner">
+      <div id="banner-inner">
+        <span id="banner-title"></span><span id="banner-sub"></span>
+      </div>
+    </div>
+
+    <!-- ============ START ============ -->
+    <section id="start">
+      <div id="start-inner">
+        <div id="start-badge">MLN122 ★ CỤC THANH TRA KINH TẾ CHÍNH TRỊ ★</div>
+        <h1>THANH TRA<br /><span class="hl">VĨ MÔ</span></h1>
+        <p class="lede">
+          20 nhận định về
+          <strong>kinh tế thị trường định hướng XHCN</strong> đang chờ kiểm
+          định. Đóng dấu <strong>ĐÚNG</strong> hoặc <strong>SAI</strong> trước
+          khi hết giờ — sai 3 lần, cuộc thanh tra bị đình chỉ.
+        </p>
+        <div id="rules">
+          <div class="rule">
+            <span class="tag">SINH MẠNG</span><b>3 TRÁI TIM</b
+            ><span>Mỗi phán quyết sai mất 1 tim</span>
+          </div>
+          <div class="rule">
+            <span class="tag">TỐC ĐỘ</span><b>5s → 1.5s</b
+            ><span>Đồng hồ rút ngắn theo vòng</span>
+          </div>
+          <div class="rule">
+            <span class="tag">PHÍM TẮT</span><b>← SAI</b><b>ĐÚNG →</b
+            ><span>Bàn phím hoặc chạm nút</span>
+          </div>
+        </div>
+        <button id="btn-start">BẮT ĐẦU THANH TRA</button>
+      </div>
+    </section>
+
+    <!-- ============ GAME ============ -->
+    <main id="app" aria-hidden="true">
+      <header id="hud">
+        <div id="hearts" aria-label="Sinh mạng"></div>
+        <div id="counter">HỒ SƠ 01/20</div>
+        <div id="hud-right">
+          <div id="score">ĐIỂM 0</div>
+          <button id="btn-snd" aria-label="Bật tắt âm thanh">ÂM ✓</button>
+        </div>
+      </header>
+      <div id="timer" role="timer"><div id="timer-fill"></div></div>
+      <div id="stage">
+        <canvas id="gl"></canvas>
+        <div id="truth"></div>
+      </div>
+      <div id="controls">
+        <button class="verdict-btn" id="btn-sai">
+          <b>BÁC BỎ</b><span class="key">←</span>
+        </button>
+        <button class="verdict-btn" id="btn-dung">
+          <b>PHÊ DUYỆT</b><span class="key">→</span>
+        </button>
+      </div>
+    </main>
+
+    <!-- ============ POPUP ============ -->
+    <div id="overlay">
+      <div id="popup" role="dialog" aria-modal="true">
+        <div id="popup-strip"></div>
+        <div id="popup-body">
+          <div id="popup-verdict"></div>
+          <div class="stat">
+            <span>HỒ SƠ ĐÃ XỬ LÝ</span><b id="st-done">0/20</b>
+          </div>
+          <div class="stat">
+            <span>KẾT LUẬN CHÍNH XÁC</span><b id="st-score">0</b>
+          </div>
+          <div class="stat">
+            <span>SINH MẠNG CÒN LẠI</span><b id="st-hp">0</b>
+          </div>
+          <button id="btn-again">THANH TRA LẠI</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+      /* ================================================================
+   THANH TRA VĨ MÔ — rapid-fire dossier inspection game
+   ================================================================ */
+      "use strict";
+
+      const QUESTIONS = [
+        {
+          t: 'Mục tiêu tối thượng là: "Dân giàu, nước mạnh, dân chủ, công bằng, văn minh".',
+          a: true,
+        },
+        {
+          t: "Đích đến cuối cùng là tối đa hóa lợi nhuận cho các siêu tập đoàn.",
+          a: false,
+        },
+        {
+          t: "Phát triển KTTT XHCN là để xây dựng cơ sở vật chất cho CNXH.",
+          a: true,
+        },
+        {
+          t: "Chỉ cần tập trung tăng trưởng GDP, bỏ qua việc xây dựng quan hệ sản xuất.",
+          a: false,
+        },
+        {
+          t: "Kinh tế tư nhân đóng vai trò chủ đạo, dẫn dắt toàn bộ nền kinh tế.",
+          a: false,
+        },
+        {
+          t: "Đất đai tại VN thuộc sở hữu toàn dân, do Nhà nước đại diện chủ sở hữu.",
+          a: true,
+        },
+        {
+          t: "Kinh tế Nhà nước là lực lượng vật chất để Nhà nước điều tiết vĩ mô.",
+          a: true,
+        },
+        {
+          t: "Các thành phần kinh tế bình đẳng, nhưng DN FDI được ưu tiên cao nhất.",
+          a: false,
+        },
+        {
+          t: "Nhà nước không được can thiệp vào giá cả, phải để thị trường tự do 100%.",
+          a: false,
+        },
+        {
+          t: '"Bàn tay vô hình" là đủ để nền kinh tế tự ổn định, không cần Nhà nước.',
+          a: false,
+        },
+        {
+          t: "Nhà nước quản lý bằng pháp luật, chiến lược, quy hoạch và kế hoạch.",
+          a: true,
+        },
+        {
+          t: "Mục đích can thiệp là để khắc phục những khuyết tật của kinh tế thị trường.",
+          a: true,
+        },
+        {
+          t: "Phân phối thu nhập dựa trên kết quả lao động và hiệu quả kinh tế.",
+          a: true,
+        },
+        {
+          t: "Phân phối công bằng có nghĩa là chia đều thu nhập cho tất cả mọi người.",
+          a: false,
+        },
+        {
+          t: "Không ai bị bỏ lại phía sau nhờ hệ thống phân phối qua an sinh xã hội.",
+          a: true,
+        },
+        {
+          t: "Tuyệt đối cấm việc phân phối thu nhập dựa trên mức đóng góp vốn cổ phần.",
+          a: false,
+        },
+        {
+          t: "Có thể tạm thời hy sinh môi trường để đổi lấy tăng trưởng kinh tế nhanh.",
+          a: false,
+        },
+        {
+          t: "Đợi đến khi kinh tế thật giàu có rồi mới bắt đầu thực hiện công bằng xã hội.",
+          a: false,
+        },
+        {
+          t: "Gắn tăng trưởng với tiến bộ và công bằng xã hội ngay trong từng chính sách.",
+          a: true,
+        },
+        {
+          t: "Tăng trưởng kinh tế phải đi đôi với phát triển văn hóa, y tế, giáo dục.",
+          a: true,
+        },
+      ];
+
+      const PHASES = [
+        { at: 0, title: "VÒNG 1 · SƠ KHẢO", sub: "5 GIÂY MỖI HỒ SƠ" },
+        { at: 5, title: "VÒNG 2 · TĂNG TỐC", sub: "CHỈ CÒN 3 GIÂY" },
+        {
+          at: 15,
+          title: "VÒNG 3 · NƯỚC RÚT",
+          sub: "1.5 GIÂY — ĐÓNG DẤU NGAY!",
+        },
+      ];
+
+      const INK = "#141414",
+        PAPER = "#F4F2EC",
+        GOLD = "#FFC800",
+        RED = "#EE3A2C",
+        WHITE = "#FFFFFF";
+      const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const timerFor = (i) => (i < 5 ? 5 : i < 15 ? 3 : 1.5);
+
+      /* ---------------- audio (tiny synth) ---------------- */
+      let ac = null,
+        sndOn = true;
+      function beep(freq, dur, delay = 0, type = "square", vol = 0.07) {
+        if (!sndOn) return;
+        try {
+          ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+          const t = ac.currentTime + delay;
+          const o = ac.createOscillator(),
+            g = ac.createGain();
+          o.type = type;
+          o.frequency.value = freq;
+          g.gain.setValueAtTime(vol, t);
+          g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+          o.connect(g);
+          g.connect(ac.destination);
+          o.start(t);
+          o.stop(t + dur + 0.02);
+        } catch (e) {}
+      }
+      const sndClick = () => beep(480, 0.06);
+      const sndCorrect = () => {
+        beep(660, 0.09);
+        beep(990, 0.14, 0.08);
+      };
+      const sndWrong = () => beep(140, 0.3, 0, "sawtooth", 0.09);
+      const sndWin = () =>
+        [523, 659, 784, 1047].forEach((f, i) => beep(f, 0.16, i * 0.11));
+
+      /* ---------------- three.js scene ---------------- */
+      const stage = document.getElementById("stage");
+      const glCanvas = document.getElementById("gl");
+      const renderer = new THREE.WebGLRenderer({
+        canvas: glCanvas,
+        antialias: true,
+        alpha: true,
+      });
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+      renderer.outputEncoding = THREE.sRGBEncoding;
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+
+      function resize() {
+        const w = stage.clientWidth,
+          h = stage.clientHeight;
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.position.z = Math.max(8.4, 6.1 / camera.aspect);
+        camera.updateProjectionMatrix();
+      }
+      addEventListener("resize", resize);
+
+      /* card back texture (shared) */
+      function starPath(ctx, cx, cy, rOut, rIn) {
+        ctx.beginPath();
+        for (let i = 0; i < 10; i++) {
+          const r = i % 2 === 0 ? rOut : rIn;
+          const a = -Math.PI / 2 + (i * Math.PI) / 5;
+          ctx[i === 0 ? "moveTo" : "lineTo"](
+            cx + Math.cos(a) * r,
+            cy + Math.sin(a) * r,
+          );
+        }
+        ctx.closePath();
+      }
+      function makeBackTexture() {
+        const c = document.createElement("canvas");
+        c.width = 768;
+        c.height = 1024;
+        const x = c.getContext("2d");
+        x.fillStyle = GOLD;
+        x.fillRect(0, 0, 768, 1024);
+        x.lineWidth = 22;
+        x.strokeStyle = INK;
+        x.strokeRect(11, 11, 746, 1002);
+        x.lineWidth = 6;
+        x.strokeRect(46, 46, 676, 932);
+        x.fillStyle = INK;
+        starPath(x, 384, 430, 190, 76);
+        x.fill();
+        x.textAlign = "center";
+        x.font = '700 30px "IBM Plex Mono", monospace';
+        x.fillText("BỘ HỒ SƠ KIỂM ĐỊNH · MLN122", 384, 130);
+        x.font = "96px Anton, sans-serif";
+        x.fillText("THANH TRA", 384, 780);
+        x.fillText("VĨ MÔ", 384, 890);
+        const tex = new THREE.CanvasTexture(c);
+        tex.encoding = THREE.sRGBEncoding;
+        return tex;
+      }
+
+      /* card front drawing */
+      const pad2 = (n) => String(n).padStart(2, "0");
+      function wrapLines(x, text, maxW) {
+        const words = text.split(" ");
+        const lines = [];
+        let line = "";
+        for (const w of words) {
+          const test = line ? line + " " + w : w;
+          if (x.measureText(test).width > maxW && line) {
+            lines.push(line);
+            line = w;
+          } else line = test;
+        }
+        if (line) lines.push(line);
+        return lines;
+      }
+      function drawFront(card, q, idx) {
+        const x = card.ctx,
+          W = 768,
+          H = 1024;
+        x.setTransform(1, 0, 0, 1, 0, 0);
+        x.fillStyle = WHITE;
+        x.fillRect(0, 0, W, H);
+        x.lineWidth = 20;
+        x.strokeStyle = INK;
+        x.strokeRect(10, 10, W - 20, H - 20);
+        /* header */
+        x.fillStyle = GOLD;
+        x.fillRect(20, 20, W - 40, 118);
+        x.fillStyle = INK;
+        x.fillRect(20, 138, W - 40, 8);
+        x.textAlign = "left";
+        x.fillStyle = INK;
+        x.font = '700 36px "IBM Plex Mono", monospace';
+        x.fillText(`HỒ SƠ SỐ ${pad2(idx + 1)}/20`, 52, 93);
+        x.fillRect(586, 46, 130, 64);
+        x.fillStyle = GOLD;
+        x.textAlign = "center";
+        x.font = "38px Anton, sans-serif";
+        x.fillText("MẬT", 651, 92);
+        /* question */
+        x.fillStyle = INK;
+        x.textAlign = "center";
+        let size = 56,
+          lines;
+        do {
+          x.font = `800 ${size}px "Be Vietnam Pro", sans-serif`;
+          lines = wrapLines(x, q.t, 620);
+          if (lines.length * (size * 1.32) <= 560) break;
+          size -= 4;
+        } while (size > 34);
+        const lh = size * 1.32;
+        let ty = 500 - ((lines.length - 1) * lh) / 2;
+        for (const ln of lines) {
+          x.fillText(ln, W / 2, ty);
+          ty += lh;
+        }
+        /* footer */
+        x.fillStyle = INK;
+        x.fillRect(20, 842, W - 40, 6);
+        x.textAlign = "left";
+        x.font = '500 24px "IBM Plex Mono", monospace';
+        x.fillText("NHẬN ĐỊNH CẦN KIỂM CHỨNG", 52, 906);
+        x.fillText("PHÁN QUYẾT: ĐÚNG ✓ / SAI ✗", 52, 946);
+        /* deterministic barcode from question text */
+        let bx = 520;
+        for (let i = 0; i < 26 && bx < 710; i++) {
+          const wCh = (q.t.charCodeAt(i % q.t.length) % 3) + 2;
+          if (i % 2 === 0) {
+            x.fillRect(bx, 878, wCh * 2, 74);
+          }
+          bx += wCh * 2 + 4;
+        }
+        x.font = '500 22px "IBM Plex Mono", monospace';
+        x.fillText(`MST·2026·${pad2(idx + 1)}`, 520, 984);
+        card.tex.needsUpdate = true;
+      }
+      function drawStamp(card, kind) {
+        const x = card.ctx,
+          W = 768;
+        const label =
+          kind === "ok" ? "CHÍNH XÁC" : kind === "late" ? "QUÁ HẠN" : "SAI LẦM";
+        x.save();
+        x.translate(W / 2, 512);
+        x.rotate(-0.14);
+        x.globalAlpha = 0.96;
+        const w = 580,
+          h = 180;
+        x.fillStyle = kind === "ok" ? GOLD : RED;
+        x.fillRect(-w / 2, -h / 2, w, h);
+        x.lineWidth = 12;
+        x.strokeStyle = INK;
+        x.strokeRect(-w / 2, -h / 2, w, h);
+        x.lineWidth = 4;
+        x.strokeRect(-w / 2 + 16, -h / 2 + 16, w - 32, h - 32);
+        x.fillStyle = INK;
+        x.textAlign = "center";
+        x.font = "104px Anton, sans-serif";
+        x.fillText(label, 0, 38);
+        x.restore();
+        card.tex.needsUpdate = true;
+      }
+
+      function makeCard(phase) {
+        const c = document.createElement("canvas");
+        c.width = 768;
+        c.height = 1024;
+        const ctx = c.getContext("2d");
+        const tex = new THREE.CanvasTexture(c);
+        tex.encoding = THREE.sRGBEncoding;
+        tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+        const side = new THREE.MeshBasicMaterial({ color: INK });
+        const front = new THREE.MeshBasicMaterial({ map: tex });
+        const back = new THREE.MeshBasicMaterial({ map: backTex });
+        const mesh = new THREE.Mesh(new THREE.BoxGeometry(3, 4, 0.09), [
+          side,
+          side,
+          side,
+          side,
+          front,
+          back,
+        ]);
+        const shadow = new THREE.Mesh(
+          new THREE.BoxGeometry(3, 4, 0.02),
+          new THREE.MeshBasicMaterial({ color: INK }),
+        );
+        shadow.position.set(0.24, -0.28, -0.1);
+        const sway = new THREE.Group();
+        sway.add(shadow);
+        sway.add(mesh);
+        const outer = new THREE.Group();
+        outer.add(sway);
+        outer.visible = false;
+        scene.add(outer);
+        return { ctx, tex, outer, sway, phase };
+      }
+
+      const backTex = makeBackTexture();
+      const cards = [];
+      let cur = 0;
+
+      /* render loop with idle sway */
+      gsap.ticker.add(() => {
+        const t = performance.now();
+        if (!RM)
+          for (const c of cards) {
+            if (!c.outer.visible) continue;
+            c.sway.rotation.y = Math.sin(t * 0.0011 + c.phase) * 0.05;
+            c.sway.rotation.x = Math.cos(t * 0.0009 + c.phase) * 0.028;
+            c.sway.position.y = Math.sin(t * 0.0013 + c.phase) * 0.06;
+          }
+        renderer.render(scene, camera);
+      });
+
+      /* ---------------- HUD ---------------- */
+      const HEART_PATH =
+        "M12 21S4 15.7 4 10a4.6 4.6 0 0 1 8-3 4.6 4.6 0 0 1 8 3c0 5.7-8 11-8 11z";
+      const heartsBox = document.getElementById("hearts");
+      function buildHearts() {
+        heartsBox.innerHTML = "";
+        for (let i = 0; i < 3; i++) {
+          const s = document.createElement("span");
+          s.className = "heart";
+          s.innerHTML = `<svg viewBox="0 0 24 24"><path d="${HEART_PATH}"/></svg>`;
+          heartsBox.appendChild(s);
+        }
+      }
+      const counterEl = document.getElementById("counter");
+      const scoreEl = document.getElementById("score");
+      function updateHUD() {
+        counterEl.textContent = `HỒ SƠ ${pad2(qi + 1)}/20`;
+        scoreEl.textContent = `ĐIỂM ${score}`;
+      }
+
+      function burst(cx, cy, color, n = 9) {
+        if (RM) return;
+        for (let i = 0; i < n; i++) {
+          const p = document.createElement("span");
+          p.className = "p";
+          p.style.background = color;
+          p.style.left = cx + "px";
+          p.style.top = cy + "px";
+          document.body.appendChild(p);
+          gsap.to(p, {
+            x: (Math.random() - 0.5) * 220,
+            y: (Math.random() - 0.5) * 220 - 40,
+            rotation: Math.random() * 360,
+            scale: 0,
+            duration: 0.6 + Math.random() * 0.3,
+            ease: "power2.out",
+            onComplete: () => p.remove(),
+          });
+        }
+      }
+
+      /* ---------------- game state ---------------- */
+      let qi = -1,
+        hp = 3,
+        score = 0,
+        busy = true,
+        playing = false;
+      let timerTween = null;
+      const timerFill = document.getElementById("timer-fill");
+      const flash = document.getElementById("flash");
+      const truth = document.getElementById("truth");
+      const btnSai = document.getElementById("btn-sai");
+      const btnDung = document.getElementById("btn-dung");
+
+      function showBanner(ph) {
+        return new Promise((res) => {
+          document.getElementById("banner-title").textContent = ph.title;
+          document.getElementById("banner-sub").textContent = ph.sub;
+          beep(392, 0.1);
+          beep(523, 0.12, 0.1);
+          gsap
+            .timeline({ onComplete: res })
+            .to("#banner-inner", {
+              xPercent: 105,
+              duration: 0.4,
+              ease: "power4.out",
+            })
+            .to("#banner-inner", {
+              xPercent: 210,
+              duration: 0.32,
+              ease: "power4.in",
+              delay: 0.75,
+            })
+            .set("#banner-inner", { xPercent: -105 });
+        });
+      }
+
+      function startTimer() {
+        const d = timerFor(qi) * (RM ? 1.15 : 1);
+        timerFill.classList.remove("hot");
+        timerTween = gsap.fromTo(
+          timerFill,
+          { scaleX: 1 },
+          {
+            scaleX: 0,
+            duration: d,
+            ease: "none",
+            onUpdate() {
+              if (this.progress() > 0.72) timerFill.classList.add("hot");
+            },
+            onComplete: () => resolve(null),
+          },
+        );
+      }
+
+      async function nextCard() {
+        qi++;
+        if (qi >= QUESTIONS.length) return endGame(true);
+        updateHUD();
+        const ph = PHASES.find((p) => p.at === qi);
+        if (ph) await showBanner(ph);
+
+        cur ^= 1;
+        const card = cards[cur];
+        drawFront(card, QUESTIONS[qi], qi);
+        card.outer.position.set(0, 0, 0);
+        card.outer.rotation.set(0, -Math.PI, 0);
+        card.outer.scale.setScalar(0.01);
+        card.outer.visible = true;
+
+        const D = RM ? 0.5 : 1;
+        gsap.to(card.outer.scale, {
+          x: 1,
+          y: 1,
+          z: 1,
+          duration: 0.55 * D,
+          ease: "back.out(1.5)",
+        });
+        gsap.to(card.outer.rotation, {
+          y: 0,
+          duration: 0.58 * D,
+          ease: "power3.out",
+          onComplete() {
+            busy = false;
+            startTimer();
+          },
+        });
+      }
+
+      function resolve(choice) {
+        if (busy || !playing) return;
+        busy = true;
+        if (timerTween) timerTween.kill();
+
+        const q = QUESTIONS[qi];
+        const correct = choice !== null && choice === q.a;
+        const kind = choice === null ? "late" : correct ? "ok" : "bad";
+        const card = cards[cur];
+        const D = RM ? 0.5 : 1;
+
+        drawStamp(card, kind);
+        gsap.fromTo(
+          card.outer.scale,
+          { x: 1.09, y: 1.09, z: 1.09 },
+          { x: 1, y: 1, z: 1, duration: 0.24, ease: "power2.out" },
+        );
+
+        flash.style.background = correct ? GOLD : RED;
+        gsap.fromTo(
+          flash,
+          { opacity: 0.8 },
+          { opacity: 0, duration: 0.4, ease: "power1.out" },
+        );
+
+        if (correct) {
+          score++;
+          sndCorrect();
+          gsap.fromTo(
+            scoreEl,
+            { scale: 1.35 },
+            { scale: 1, duration: 0.35, ease: "back.out(2)" },
+          );
+          const r = stage.getBoundingClientRect();
+          burst(r.left + r.width / 2, r.top + r.height / 2, GOLD, 7);
+        } else {
+          hp--;
+          sndWrong();
+          const heart = heartsBox.children[hp];
+          const hr = heart.getBoundingClientRect();
+          burst(hr.left + hr.width / 2, hr.top + hr.height / 2, RED, 8);
+          gsap
+            .timeline()
+            .to(heart, { rotation: 18, scale: 1.35, duration: 0.12 })
+            .to(heart, { rotation: -14, duration: 0.1 })
+            .add(() => heart.classList.add("dead"))
+            .to(heart, {
+              rotation: 0,
+              scale: 0.9,
+              duration: 0.22,
+              ease: "back.out(3)",
+            });
+          if (!RM)
+            gsap.fromTo(
+              "#app",
+              { x: -13 },
+              { x: 0, duration: 0.5, ease: "elastic.out(1,.28)" },
+            );
+          /* teach the right answer */
+          truth.textContent = `ĐÁP ÁN CỦA CỤC: ${q.a ? "ĐÚNG ✓" : "SAI ✗"}`;
+          gsap
+            .timeline()
+            .to(truth, {
+              scale: 1,
+              duration: 0.28,
+              ease: "back.out(2)",
+              delay: 0.15,
+            })
+            .to(truth, {
+              scale: 0,
+              duration: 0.2,
+              ease: "power2.in",
+              delay: 1.1,
+            });
+        }
+        updateHUD();
+
+        /* fly the dossier off */
+        const dir = choice === true ? 1 : choice === false ? -1 : 0;
+        gsap.delayedCall(0.34 * D, () => {
+          if (dir !== 0) {
+            gsap.to(card.outer.position, {
+              x: dir * 10,
+              y: 1.4,
+              duration: 0.55 * D,
+              ease: "power2.in",
+            });
+            gsap.to(card.outer.rotation, {
+              y: dir * 2.8,
+              z: dir * 0.9,
+              duration: 0.55 * D,
+              ease: "power2.in",
+              onComplete() {
+                card.outer.visible = false;
+              },
+            });
+          } else {
+            gsap.to(card.outer.position, {
+              y: -9,
+              duration: 0.55 * D,
+              ease: "power2.in",
+            });
+            gsap.to(card.outer.rotation, {
+              z: 1.3,
+              x: 0.8,
+              duration: 0.55 * D,
+              ease: "power2.in",
+              onComplete() {
+                card.outer.visible = false;
+              },
+            });
+          }
+          if (hp <= 0) {
+            gsap.delayedCall(0.6 * D, () => endGame(false));
+          } else {
+            gsap.delayedCall(0.3 * D, nextCard);
+          }
+        });
+      }
+
+      /* ---------------- end / restart ---------------- */
+      function rank(win) {
+        if (win && score === 20 && hp === 3) return "THANH TRA HUYỀN THOẠI";
+        if (win && score >= 18) return "THANH TRA XUẤT SẮC";
+        if (win) return "THANH TRA CHÍNH NGẠCH";
+        if (score >= 12) return "THANH TRA VIÊN TRIỂN VỌNG";
+        if (score >= 6) return "TẬP SỰ CẦN KÈM CẶP";
+        return "MỜI ĐỌC LẠI GIÁO TRÌNH";
+      }
+      function endGame(win) {
+        playing = false;
+        busy = true;
+        if (timerTween) timerTween.kill();
+        gsap.set(timerFill, { scaleX: 0 });
+        const popup = document.getElementById("popup");
+        popup.classList.toggle("lose", !win);
+        document.getElementById("popup-strip").textContent = win
+          ? "HOÀN TẤT THANH TRA"
+          : "ĐÌNH CHỈ THANH TRA";
+        document.getElementById("popup-verdict").textContent = rank(win);
+        document.getElementById("st-done").textContent =
+          `${Math.min(qi + (win ? 0 : 1), 20)}/20`;
+        document.getElementById("st-score").textContent = score;
+        document.getElementById("st-hp").textContent = "♥".repeat(hp) || "0";
+        const ov = document.getElementById("overlay");
+        ov.style.display = "flex";
+        gsap.fromTo(
+          popup,
+          { scale: 0.6, rotation: -3 },
+          { scale: 1, rotation: 0, duration: 0.45, ease: "back.out(1.8)" },
+        );
+        if (win) {
+          sndWin();
+          for (let i = 0; i < 5; i++) {
+            gsap.delayedCall(i * 0.18, () =>
+              burst(
+                innerWidth * 0.2 + Math.random() * innerWidth * 0.6,
+                innerHeight * 0.25 + Math.random() * innerHeight * 0.3,
+                [GOLD, RED, INK][i % 3],
+                10,
+              ),
+            );
+          }
+        } else sndWrong();
+      }
+      function restart() {
+        document.getElementById("overlay").style.display = "none";
+        for (const c of cards) c.outer.visible = false;
+        qi = -1;
+        hp = 3;
+        score = 0;
+        playing = true;
+        buildHearts();
+        updateHUD();
+        sndClick();
+        nextCard();
+      }
+
+      /* ---------------- input ---------------- */
+      btnSai.addEventListener("click", () => {
+        sndClick();
+        resolve(false);
+      });
+      btnDung.addEventListener("click", () => {
+        sndClick();
+        resolve(true);
+      });
+      addEventListener("keydown", (e) => {
+        if (!playing) return;
+        if (e.key === "ArrowLeft") {
+          sndClick();
+          resolve(false);
+        }
+        if (e.key === "ArrowRight") {
+          sndClick();
+          resolve(true);
+        }
+      });
+      document.getElementById("btn-snd").addEventListener("click", function () {
+        sndOn = !sndOn;
+        this.textContent = sndOn ? "ÂM ✓" : "ÂM ✗";
+      });
+      document.getElementById("btn-again").addEventListener("click", restart);
+
+      /* ---------------- boot ---------------- */
+      if (!RM)
+        gsap.to("#start-badge", {
+          rotation: 2,
+          duration: 1.6,
+          yoyo: true,
+          repeat: -1,
+          ease: "sine.inOut",
+        });
+
+      buildHearts();
+      resize();
+      cards.push(makeCard(0), makeCard(2.1));
+
+      document
+        .getElementById("btn-start")
+        .addEventListener("click", async () => {
+          const btn = document.getElementById("btn-start");
+          btn.disabled = true;
+          try {
+            await Promise.race([
+              Promise.all([
+                document.fonts.load('800 56px "Be Vietnam Pro"'),
+                document.fonts.load('700 36px "IBM Plex Mono"'),
+                document.fonts.load("104px Anton"),
+              ]),
+              new Promise((r) => setTimeout(r, 1800)),
+            ]);
+          } catch (e) {}
+          sndClick();
+          document.getElementById("app").setAttribute("aria-hidden", "false");
+          gsap.to("#start", {
+            yPercent: -104,
+            duration: RM ? 0.3 : 0.6,
+            ease: "power3.in",
+            onComplete() {
+              document.getElementById("start").style.display = "none";
+              resize();
+              playing = true;
+              nextCard();
+            },
+          });
+        });
+
+      /* redraw current card if fonts land late */
+      document.fonts.ready.then(() => {
+        if (playing && qi >= 0 && qi < QUESTIONS.length)
+          drawFront(cards[cur], QUESTIONS[qi], qi);
+        else backTex.needsUpdate = true;
+      });
+    </script>
+  </body>
+</html>
