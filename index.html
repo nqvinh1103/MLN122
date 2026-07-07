@@ -548,7 +548,7 @@
             ><span>Mỗi phán quyết sai mất 1 tim</span>
           </div>
           <div class="rule">
-            <span class="tag">TỐC ĐỘ</span><b>5s → 1.5s</b
+            <span class="tag">TỐC ĐỘ</span><b>10s → 5s</b
             ><span>Đồng hồ rút ngắn theo vòng</span>
           </div>
           <div class="rule">
@@ -697,12 +697,12 @@
       ];
 
       const PHASES = [
-        { at: 0, title: "VÒNG 1 · SƠ KHẢO", sub: "5 GIÂY MỖI HỒ SƠ" },
-        { at: 5, title: "VÒNG 2 · TĂNG TỐC", sub: "CHỈ CÒN 3 GIÂY" },
+        { at: 0, title: "VÒNG 1 · SƠ KHẢO", sub: "10 GIÂY MỖI HỒ SƠ" },
+        { at: 5, title: "VÒNG 2 · TĂNG TỐC", sub: "CHỈ CÒN 8 GIÂY" },
         {
           at: 15,
           title: "VÒNG 3 · NƯỚC RÚT",
-          sub: "1.5 GIÂY — ĐÓNG DẤU NGAY!",
+          sub: "5 GIÂY — ĐÓNG DẤU NGAY!",
         },
       ];
 
@@ -712,7 +712,7 @@
         RED = "#EE3A2C",
         WHITE = "#FFFFFF";
       const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const timerFor = (i) => (i < 5 ? 5 : i < 15 ? 3 : 1.5);
+      const timerFor = (i) => (i < 5 ? 10 : i < 15 ? 8 : 5);
 
       /* ---------------- audio (tiny synth) ---------------- */
       let ac = null,
