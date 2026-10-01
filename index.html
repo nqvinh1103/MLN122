@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>THANH TRA VĨ MÔ — MLN122</title>
+    <title>ĐOÀN KẾT QUỐC TẾ — Tư tưởng Hồ Chí Minh</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -12,10 +12,11 @@
     />
     <style>
       :root {
-        --ink: #141414;
-        --paper: #f4f2ec;
-        --gold: #ffc800;
-        --red: #ee3a2c;
+        --red: #da251d; /* đỏ cờ */
+        --lacquer: #8e1414; /* đỏ sơn mài — bóng đổ trên nền đỏ */
+        --gold: #ffcd00; /* vàng sao */
+        --ink: #1c0a06;
+        --paper: #fff4d6;
         --white: #ffffff;
       }
       * {
@@ -28,8 +29,8 @@
         height: 100%;
       }
       body {
-        background-color: var(--paper);
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Cpath d='M13 10h2v3h3v2h-3v3h-2v-3h-3v-2h3z' fill='%23141414' fill-opacity='0.06'/%3E%3C/svg%3E");
+        background-color: var(--red);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Cpolygon points='22,14 24.4,19.6 30.4,19.9 25.8,23.8 27.3,29.6 22,26.4 16.7,29.6 18.2,23.8 13.6,19.9 19.6,19.6' fill='%23ffcd00' fill-opacity='0.13'/%3E%3C/svg%3E");
         color: var(--ink);
         font-family: "Be Vietnam Pro", sans-serif;
         overflow: hidden;
@@ -39,8 +40,16 @@
         cursor: pointer;
       }
       button:focus-visible {
-        outline: 4px solid var(--ink);
+        outline: 4px solid var(--gold);
         outline-offset: 4px;
+      }
+      .sr {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
       }
 
       /* ============ SCREEN FLASH ============ */
@@ -65,18 +74,18 @@
         overflow: hidden;
       }
       #banner-inner {
-        background: var(--ink);
-        color: var(--gold);
-        border-top: 5px solid var(--ink);
-        border-bottom: 5px solid var(--ink);
-        padding: 20px 0;
+        background: var(--gold);
+        color: var(--red);
+        border-top: 6px solid var(--ink);
+        border-bottom: 6px solid var(--ink);
+        padding: 22px 16px;
         text-align: center;
         transform: translateX(-105%);
       }
       #banner-title {
         display: block;
         font-family: "Anton", sans-serif;
-        font-size: clamp(30px, 6vw, 58px);
+        font-size: clamp(40px, 8vw, 78px);
         letter-spacing: 0.04em;
         line-height: 1;
       }
@@ -84,10 +93,10 @@
         display: block;
         font-family: "IBM Plex Mono", monospace;
         font-weight: 700;
-        font-size: clamp(12px, 2vw, 17px);
-        letter-spacing: 0.3em;
-        margin-top: 8px;
-        color: var(--white);
+        font-size: clamp(12px, 2vw, 18px);
+        letter-spacing: 0.16em;
+        margin-top: 10px;
+        color: var(--ink);
       }
 
       /* ============ START SCREEN ============ */
@@ -95,19 +104,50 @@
         position: fixed;
         inset: 0;
         z-index: 50;
-        background-color: var(--paper);
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Cpath d='M13 10h2v3h3v2h-3v3h-2v-3h-3v-2h3z' fill='%23141414' fill-opacity='0.06'/%3E%3C/svg%3E");
+        background: var(--red);
         display: flex;
-        overflow-y: auto;
+        overflow: hidden auto;
         padding: 24px;
       }
+      #rays-wrap {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      #rays {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: max(180vw, 180vh);
+        height: max(180vw, 180vh);
+        margin-left: calc(max(180vw, 180vh) / -2);
+        margin-top: calc(max(180vw, 180vh) / -2);
+        pointer-events: none;
+      }
+      #rays polygon {
+        fill: var(--lacquer);
+        opacity: 0.55;
+      }
       #start-inner {
+        position: relative;
         margin: auto;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 24px;
+        gap: clamp(12px, 2.4vh, 22px);
         text-align: center;
+        max-width: 900px;
+      }
+      #start-star {
+        width: clamp(56px, 9vh, 120px);
+        filter: drop-shadow(7px 7px 0 var(--ink));
+      }
+      #start-star polygon {
+        fill: var(--gold);
+        stroke: var(--ink);
+        stroke-width: 2.5;
+        stroke-linejoin: round;
       }
       #start-badge {
         font-family: "IBM Plex Mono", monospace;
@@ -119,30 +159,37 @@
         padding: 10px 18px;
         border: 3px solid var(--ink);
         box-shadow: 5px 5px 0 var(--gold);
-        transform: rotate(-2deg);
       }
       #start h1 {
         font-family: "Anton", sans-serif;
-        font-size: clamp(56px, 12vw, 132px);
-        line-height: 0.92;
+        font-weight: 400;
+        font-size: clamp(48px, min(12vw, 11vh), 136px);
+        line-height: 0.95;
         letter-spacing: 0.01em;
+        color: var(--gold);
+        text-shadow: 6px 6px 0 var(--ink);
       }
       #start h1 .hl {
-        margin-top: 35px;
-        background: var(--gold);
-        padding: 0 0.12em;
-        box-shadow: 8px 8px 0 var(--ink);
         display: inline-block;
+        margin-top: 10px;
+        color: var(--red);
+        background: var(--gold);
+        padding: 0.12em 0.16em 0;
+        border: 5px solid var(--ink);
+        box-shadow: 9px 9px 0 var(--ink);
+        text-shadow: none;
       }
       #start .lede {
-        max-width: 520px;
+        max-width: 700px;
         font-size: clamp(15px, 2.4vw, 18px);
         font-weight: 600;
-        line-height: 1.5;
+        line-height: 1.55;
+        color: var(--white);
       }
       #start .lede strong {
+        color: var(--ink);
         background: var(--gold);
-        padding: 1px 5px;
+        padding: 1px 6px;
       }
       #rules {
         display: flex;
@@ -151,26 +198,12 @@
         justify-content: center;
       }
       .rule {
-        background: var(--white);
+        background: var(--paper);
         border: 4px solid var(--ink);
         box-shadow: 6px 6px 0 var(--ink);
-        padding: 14px 18px;
-        width: 172px;
+        padding: 10px 14px 12px;
+        width: 220px;
         text-align: left;
-      }
-      .rule b {
-        display: block;
-        font-family: "Anton", sans-serif;
-        font-size: 26px;
-        letter-spacing: 0.02em;
-      }
-      .rule span {
-        font-family: "IBM Plex Mono", monospace;
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 1.4;
-        display: block;
-        margin-top: 4px;
       }
       .rule .tag {
         display: inline-block;
@@ -178,27 +211,44 @@
         font-weight: 700;
         font-size: 11px;
         background: var(--red);
-        color: var(--ink);
+        color: var(--gold);
         border: 2px solid var(--ink);
-        padding: 2px 7px;
-        margin-bottom: 8px;
-        letter-spacing: 0.1em;
+        padding: 2px 8px;
+        letter-spacing: 0.12em;
       }
-      .rule:nth-child(2) .tag {
-        background: var(--gold);
+      .rule b {
+        display: block;
+        font-family: "Anton", sans-serif;
+        font-weight: 400;
+        font-size: 26px;
+        letter-spacing: 0.02em;
+        margin-top: 4px;
+        color: var(--red);
       }
-      .rule:nth-child(3) .tag {
-        background: var(--white);
+      .rule span:last-child {
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 1.4;
+        display: block;
+        margin-top: 2px;
+      }
+      #start .hint {
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 500;
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        color: var(--paper);
       }
       #btn-start {
         font-family: "Anton", sans-serif;
         font-size: clamp(24px, 4vw, 36px);
         letter-spacing: 0.05em;
         background: var(--gold);
-        color: var(--ink);
+        color: var(--red);
         border: 5px solid var(--ink);
         box-shadow: 9px 9px 0 var(--ink);
-        padding: 18px 46px;
+        padding: 12px 46px;
         transition:
           transform 0.12s,
           box-shadow 0.12s;
@@ -217,9 +267,9 @@
         height: 100dvh;
         display: flex;
         flex-direction: column;
-        max-width: 1100px;
+        max-width: 1240px;
         margin: 0 auto;
-        padding: 14px 16px 16px;
+        padding: 14px 18px 16px;
         gap: 12px;
       }
       #hud {
@@ -227,37 +277,25 @@
         align-items: center;
         justify-content: space-between;
         gap: 12px;
+        flex-wrap: wrap;
       }
-      #hearts {
-        display: flex;
-        gap: 8px;
-      }
-      .heart {
-        width: 40px;
-        height: 40px;
-        display: block;
-      }
-      .heart svg {
-        width: 100%;
-        height: 100%;
-        overflow: visible;
-      }
-      .heart path {
-        fill: var(--red);
-        stroke: var(--ink);
-        stroke-width: 2.4;
-      }
-      .heart.dead path {
-        fill: transparent;
-      }
-      #counter {
+      #part {
         font-family: "IBM Plex Mono", monospace;
         font-weight: 700;
-        font-size: clamp(13px, 2.4vw, 17px);
-        letter-spacing: 0.14em;
-        background: var(--ink);
-        color: var(--white);
-        padding: 8px 14px;
+        font-size: clamp(11px, 1.8vw, 14px);
+        letter-spacing: 0.1em;
+        background: var(--gold);
+        border: 3px solid var(--ink);
+        box-shadow: 4px 4px 0 var(--ink);
+        padding: 7px 12px;
+        max-width: 52ch;
+      }
+      #counter {
+        font-family: "Anton", sans-serif;
+        font-size: clamp(20px, 3vw, 28px);
+        letter-spacing: 0.06em;
+        color: var(--gold);
+        text-shadow: 3px 3px 0 var(--ink);
       }
       #hud-right {
         display: flex;
@@ -267,18 +305,19 @@
       #score {
         font-family: "IBM Plex Mono", monospace;
         font-weight: 700;
-        font-size: clamp(13px, 2.4vw, 17px);
+        font-size: clamp(13px, 2.2vw, 16px);
         letter-spacing: 0.1em;
-        background: var(--gold);
+        background: var(--ink);
+        color: var(--gold);
         border: 3px solid var(--ink);
-        box-shadow: 4px 4px 0 var(--ink);
+        box-shadow: 4px 4px 0 var(--gold);
         padding: 6px 12px;
       }
       #btn-snd {
         font-family: "IBM Plex Mono", monospace;
         font-weight: 700;
         font-size: 13px;
-        background: var(--white);
+        background: var(--paper);
         border: 3px solid var(--ink);
         box-shadow: 4px 4px 0 var(--ink);
         padding: 6px 10px;
@@ -290,8 +329,8 @@
 
       #timer {
         border: 4px solid var(--ink);
-        background: var(--white);
-        height: 28px;
+        background: var(--lacquer);
+        height: 22px;
         box-shadow: 5px 5px 0 var(--ink);
       }
       #timer-fill {
@@ -302,13 +341,19 @@
         border-right: 4px solid var(--ink);
       }
       #timer-fill.hot {
-        background: var(--red);
+        background: var(--paper);
       }
 
+      #play {
+        flex: 1;
+        min-height: 0;
+        display: grid;
+        grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+        gap: 22px;
+      }
       #stage {
         position: relative;
-        flex: 1;
-        min-height: 200px;
+        min-height: 0;
       }
       #gl {
         position: absolute;
@@ -317,82 +362,163 @@
         height: 100%;
         display: block;
       }
-      #truth {
-        position: absolute;
-        left: 50%;
-        bottom: 10px;
-        transform: translateX(-50%) scale(0);
+      #side {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        min-height: 0;
+        overflow-y: auto;
+        padding: 4px 12px 12px 4px;
+        scrollbar-width: none;
+      }
+      /* centre vertically via auto margins: unlike justify-content:center,
+         overflow then grows downward so option A stays reachable */
+      #side::before,
+      #side::after {
+        content: "";
+        margin-block: auto;
+      }
+      /* still scrollable by wheel/touch, just no visible bar */
+      #side::-webkit-scrollbar,
+      #app::-webkit-scrollbar {
+        display: none;
+      }
+      #app {
+        scrollbar-width: none;
+      }
+      /* question as text — mobile only; the card carries it on desktop */
+      #qtext {
+        display: none;
+        background: var(--paper);
+        border: 4px solid var(--ink);
+        box-shadow: 6px 6px 0 var(--ink);
+        padding: 14px 16px;
+        font-weight: 800;
+        font-size: 17px;
+        line-height: 1.4;
+      }
+      #opts {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .opt {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        text-align: left;
+        background: var(--paper);
+        color: var(--ink);
+        border: 4px solid var(--ink);
+        box-shadow: 6px 6px 0 var(--ink);
+        padding: 10px 14px 10px 10px;
+        font-size: clamp(14px, 1.45vw, 17px);
+        font-weight: 600;
+        line-height: 1.35;
+        transition:
+          transform 0.1s,
+          box-shadow 0.1s,
+          opacity 0.2s;
+        touch-action: manipulation;
+      }
+      .opt .letter {
+        flex: none;
+        width: 46px;
+        height: 46px;
+        display: grid;
+        place-items: center;
+        font-family: "Anton", sans-serif;
+        font-size: 26px;
+        background: var(--red);
+        color: var(--gold);
+        border: 3px solid var(--ink);
+      }
+      .opt:not(:disabled):hover {
+        transform: translate(-3px, -3px);
+        box-shadow: 9px 9px 0 var(--ink);
+      }
+      .opt:not(:disabled):active {
+        transform: translate(5px, 5px);
+        box-shadow: 0 0 0 var(--ink);
+      }
+      .opt:disabled {
+        cursor: default;
+      }
+      .opt.correct {
+        background: var(--gold);
+      }
+      .opt.correct .letter {
         background: var(--ink);
         color: var(--gold);
-        font-family: "IBM Plex Mono", monospace;
-        font-weight: 700;
-        font-size: 15px;
-        letter-spacing: 0.12em;
-        padding: 9px 16px;
-        white-space: nowrap;
-        border: 3px solid var(--ink);
-        box-shadow: 5px 5px 0 var(--red);
+      }
+      .opt.wrong {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      .opt.wrong .txt {
+        text-decoration: line-through;
+        text-decoration-thickness: 2px;
+      }
+      .opt.wrong .letter {
+        background: var(--paper);
+        color: var(--ink);
+      }
+      .opt.dim {
+        opacity: 0.45;
       }
 
-      #controls {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
+      #explain {
+        background: var(--paper);
+        border: 4px solid var(--ink);
+        box-shadow: 6px 6px 0 var(--ink);
       }
-      .verdict-btn {
-        border: 5px solid var(--ink);
-        box-shadow: 8px 8px 0 var(--ink);
-        padding: 16px 10px 14px;
-        text-align: center;
-        color: var(--ink);
+      #ex-strip {
+        font-family: "Anton", sans-serif;
+        font-size: clamp(20px, 2.4vw, 26px);
+        letter-spacing: 0.04em;
+        padding: 8px 14px;
+        background: var(--gold);
+        border-bottom: 4px solid var(--ink);
+      }
+      #explain.miss #ex-strip {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      #ex-text {
+        padding: 12px 14px 4px;
+        font-size: clamp(14px, 1.4vw, 16px);
+        line-height: 1.5;
+      }
+      #ex-text b {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        color: var(--red);
+        display: block;
+        margin-bottom: 3px;
+      }
+      #btn-next {
+        display: block;
+        margin: 10px 14px 14px auto;
+        font-family: "Anton", sans-serif;
+        font-size: 22px;
+        letter-spacing: 0.05em;
+        background: var(--red);
+        color: var(--gold);
+        border: 4px solid var(--ink);
+        box-shadow: 5px 5px 0 var(--ink);
+        padding: 8px 22px;
         transition:
           transform 0.1s,
           box-shadow 0.1s;
-        touch-action: manipulation;
-        user-select: none;
       }
-      .verdict-btn small {
-        display: block;
-        font-family: "IBM Plex Mono", monospace;
-        font-weight: 700;
-        font-size: 12px;
-        letter-spacing: 0.28em;
+      #btn-next:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 7px 7px 0 var(--ink);
       }
-      .verdict-btn b {
-        display: block;
-        font-family: "Anton", sans-serif;
-        font-weight: 400;
-        font-size: clamp(30px, 6vw, 50px);
-        line-height: 1.05;
-        letter-spacing: 0.04em;
-      }
-      .verdict-btn .key {
-        display: inline-block;
-        margin-top: 5px;
-        font-family: "IBM Plex Mono", monospace;
-        font-weight: 700;
-        font-size: 12px;
-        background: var(--ink);
-        color: var(--white);
-        padding: 2px 9px;
-      }
-      #btn-sai {
-        background: var(--red);
-      }
-      #btn-dung {
-        background: var(--gold);
-      }
-      .verdict-btn:hover {
-        transform: translate(-3px, -3px);
-        box-shadow: 11px 11px 0 var(--ink);
-      }
-      .verdict-btn:active {
-        transform: translate(6px, 6px);
+      #btn-next:active {
+        transform: translate(4px, 4px);
         box-shadow: 0 0 0 var(--ink);
-      }
-      .verdict-btn:disabled {
-        opacity: 0.6;
-        cursor: default;
       }
 
       /* ============ POPUP ============ */
@@ -404,119 +530,157 @@
         align-items: center;
         justify-content: center;
         padding: 20px;
-        background: rgba(20, 20, 20, 0.62);
+        background: rgba(28, 10, 6, 0.66);
+        overflow-y: auto;
       }
       #popup {
-        width: min(540px, 94vw);
-        background: var(--white);
+        width: min(560px, 94vw);
+        margin: auto;
+        background: var(--paper);
         border: 6px solid var(--ink);
         box-shadow: 16px 16px 0 var(--ink);
       }
       #popup-strip {
         font-family: "Anton", sans-serif;
-        font-size: clamp(26px, 5vw, 40px);
+        font-size: clamp(28px, 5vw, 42px);
         letter-spacing: 0.03em;
         text-align: center;
-        padding: 16px 12px;
-        background: var(--gold);
+        padding: 14px 12px;
+        background: var(--red);
+        color: var(--gold);
         border-bottom: 6px solid var(--ink);
       }
-      #popup.lose #popup-strip {
-        background: var(--red);
-      }
       #popup-body {
-        padding: 22px 26px 26px;
+        padding: 20px 24px 24px;
         display: flex;
         flex-direction: column;
-        gap: 14px;
+        gap: 12px;
+      }
+      #popup-total {
+        text-align: center;
+        font-family: "Anton", sans-serif;
+        font-size: clamp(64px, 12vw, 96px);
+        line-height: 1;
+        color: var(--red);
+      }
+      #popup-total small {
+        font-size: 0.45em;
+        color: var(--ink);
       }
       #popup-verdict {
         align-self: center;
-        transform: rotate(-4deg);
+        transform: rotate(-3deg);
         font-family: "Anton", sans-serif;
-        font-size: clamp(24px, 4.6vw, 34px);
+        font-size: clamp(22px, 4.2vw, 30px);
         letter-spacing: 0.05em;
         border: 5px solid var(--ink);
-        padding: 8px 22px;
-        margin: 6px 0 4px;
+        padding: 6px 20px;
+        margin: 2px 0 8px;
         background: var(--gold);
         box-shadow: 6px 6px 0 var(--ink);
-      }
-      #popup.lose #popup-verdict {
-        background: var(--white);
-        color: var(--red);
-        border-color: var(--red);
-        box-shadow: 6px 6px 0 var(--red);
+        text-align: center;
       }
       .stat {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 12px;
         border: 3px solid var(--ink);
-        padding: 10px 14px;
+        background: var(--white);
+        padding: 9px 14px;
         font-family: "IBM Plex Mono", monospace;
         font-weight: 700;
-        font-size: 14px;
-        letter-spacing: 0.06em;
+        font-size: 13px;
+        letter-spacing: 0.04em;
       }
       .stat b {
-        font-size: 20px;
+        flex: none;
+        font-size: 18px;
         background: var(--gold);
         padding: 0 8px;
         border: 2px solid var(--ink);
-      }
-      #popup.lose .stat b {
-        background: var(--white);
       }
       #btn-again {
         font-family: "Anton", sans-serif;
         font-size: 26px;
         letter-spacing: 0.05em;
-        background: var(--ink);
+        background: var(--red);
         color: var(--gold);
         border: 5px solid var(--ink);
-        box-shadow: 7px 7px 0 var(--gold);
-        padding: 14px 12px;
-        margin-top: 6px;
+        box-shadow: 7px 7px 0 var(--ink);
+        padding: 12px;
+        margin-top: 8px;
         transition:
           transform 0.1s,
           box-shadow 0.1s;
       }
       #btn-again:hover {
         transform: translate(-2px, -2px);
-        box-shadow: 9px 9px 0 var(--gold);
+        box-shadow: 9px 9px 0 var(--ink);
       }
       #btn-again:active {
         transform: translate(5px, 5px);
-        box-shadow: 0 0 0 var(--gold);
+        box-shadow: 0 0 0 var(--ink);
       }
 
       .p {
         position: fixed;
         z-index: 65;
-        width: 12px;
-        height: 12px;
-        border: 2px solid var(--ink);
+        width: 14px;
+        height: 14px;
         pointer-events: none;
+        clip-path: polygon(
+          50% 0,
+          61% 35%,
+          98% 35%,
+          68% 57%,
+          79% 91%,
+          50% 70%,
+          21% 91%,
+          32% 57%,
+          2% 35%,
+          39% 35%
+        );
       }
 
-      @media (max-width: 640px) {
+      @media (max-width: 860px) {
         #app {
-          padding: 10px 10px 12px;
+          overflow-y: auto;
+          padding: 10px 12px 14px;
           gap: 10px;
         }
-        .heart {
-          width: 32px;
-          height: 32px;
+        #play {
+          display: flex;
+          flex-direction: column;
+          flex: none;
+          gap: 12px;
+        }
+        #stage {
+          height: 22vh;
+          min-height: 150px;
+          flex: none;
+        }
+        #side {
+          overflow: visible;
+          justify-content: flex-start;
+        }
+        #qtext {
+          display: block;
+        }
+        .opt .letter {
+          width: 38px;
+          height: 38px;
+          font-size: 22px;
         }
         .rule {
-          width: 150px;
-          padding: 11px 13px;
+          width: 100%;
+          max-width: 320px;
         }
       }
       @media (prefers-reduced-motion: reduce) {
-        .verdict-btn,
+        .opt,
         #btn-start,
+        #btn-next,
         #btn-again {
           transition: none;
         }
@@ -533,74 +697,81 @@
 
     <!-- ============ START ============ -->
     <section id="start">
+      <div id="rays-wrap" aria-hidden="true"><svg id="rays" viewBox="-100 -100 200 200"></svg></div>
       <div id="start-inner">
-        <div id="start-badge">MLN122 ★ CỤC THANH TRA KINH TẾ CHÍNH TRỊ ★</div>
-        <h1>THANH TRA<br /><span class="hl">VĨ MÔ</span></h1>
+        <svg id="start-star" viewBox="0 0 100 100" aria-hidden="true">
+          <polygon
+            points="50,4 61.2,36.6 95.6,37 68.1,57.6 78.2,90.4 50,70.6 21.8,90.4 31.9,57.6 4.4,37 38.8,36.6"
+          />
+        </svg>
+        <div id="start-badge">★ TƯ TƯỞNG HỒ CHÍ MINH ★</div>
+        <h1>ĐOÀN KẾT<br /><span class="hl">QUỐC TẾ</span></h1>
         <p class="lede">
-          20 nhận định về
-          <strong>kinh tế thị trường định hướng XHCN</strong> đang chờ kiểm
-          định. Đóng dấu <strong>ĐÚNG</strong> hoặc <strong>SAI</strong> trước
-          khi hết giờ — sai 3 lần, cuộc thanh tra bị đình chỉ.
+          15 câu hỏi về <strong>tư tưởng Hồ Chí Minh</strong> về đoàn kết quốc
+          tế và thực tiễn đối ngoại Việt Nam hôm nay. Chọn đáp án đúng trước khi
+          hết giờ.
         </p>
         <div id="rules">
           <div class="rule">
-            <span class="tag">SINH MẠNG</span><b>3 TRÁI TIM</b
-            ><span>Mỗi phán quyết sai mất 1 tim</span>
+            <span class="tag">PHẦN 1 · 6 CÂU</span><b>LÝ LUẬN</b
+            ><span>Tư tưởng Hồ Chí Minh về đoàn kết quốc tế · 20 giây/câu</span>
           </div>
           <div class="rule">
-            <span class="tag">TỐC ĐỘ</span><b>10s → 5s</b
-            ><span>Đồng hồ rút ngắn theo vòng</span>
+            <span class="tag">PHẦN 2 · 5 CÂU</span><b>THÀNH TỰU</b
+            ><span>Đối ngoại thực tiễn của Việt Nam · 15 giây/câu</span>
           </div>
           <div class="rule">
-            <span class="tag">PHÍM TẮT</span><b>← SAI</b><b>ĐÚNG →</b
-            ><span>Bàn phím hoặc chạm nút</span>
+            <span class="tag">PHẦN 3 · 4 CÂU</span><b>BÀI HỌC</b
+            ><span>Nguyên tắc &amp; kinh nghiệm cốt lõi · 12 giây/câu</span>
           </div>
         </div>
-        <button id="btn-start">BẮT ĐẦU THANH TRA</button>
+        <button id="btn-start">BẮT ĐẦU</button>
+        <p class="hint">PHÍM TẮT: A B C D hoặc 1 2 3 4 để chọn · ENTER sang câu tiếp</p>
       </div>
     </section>
 
     <!-- ============ GAME ============ -->
     <main id="app" aria-hidden="true">
       <header id="hud">
-        <div id="hearts" aria-label="Sinh mạng"></div>
-        <div id="counter">HỒ SƠ 01/20</div>
+        <div id="part">PHẦN 1</div>
+        <div id="counter">CÂU 01/15</div>
         <div id="hud-right">
           <div id="score">ĐIỂM 0</div>
           <button id="btn-snd" aria-label="Bật tắt âm thanh">ÂM ✓</button>
         </div>
       </header>
       <div id="timer" role="timer"><div id="timer-fill"></div></div>
-      <div id="stage">
-        <canvas id="gl"></canvas>
-        <div id="truth"></div>
-      </div>
-      <div id="controls">
-        <button class="verdict-btn" id="btn-sai">
-          <b>BÁC BỎ</b><span class="key">←</span>
-        </button>
-        <button class="verdict-btn" id="btn-dung">
-          <b>PHÊ DUYỆT</b><span class="key">→</span>
-        </button>
+      <div id="play">
+        <div id="stage"><canvas id="gl" aria-hidden="true"></canvas></div>
+        <div id="side">
+          <p id="qtext" aria-live="polite"></p>
+          <div id="opts" role="group" aria-label="Các phương án"></div>
+          <section id="explain" hidden aria-live="polite">
+            <div id="ex-strip"></div>
+            <p id="ex-text"></p>
+            <button id="btn-next">CÂU TIẾP THEO →</button>
+          </section>
+        </div>
       </div>
     </main>
 
     <!-- ============ POPUP ============ -->
     <div id="overlay">
-      <div id="popup" role="dialog" aria-modal="true">
-        <div id="popup-strip"></div>
+      <div id="popup" role="dialog" aria-modal="true" aria-labelledby="popup-strip">
+        <div id="popup-strip">HOÀN THÀNH</div>
         <div id="popup-body">
+          <div id="popup-total">0<small>/15</small></div>
           <div id="popup-verdict"></div>
           <div class="stat">
-            <span>HỒ SƠ ĐÃ XỬ LÝ</span><b id="st-done">0/20</b>
+            <span>PHẦN 1 · LÝ LUẬN</span><b id="st-0">0/6</b>
           </div>
           <div class="stat">
-            <span>KẾT LUẬN CHÍNH XÁC</span><b id="st-score">0</b>
+            <span>PHẦN 2 · THÀNH TỰU ĐỐI NGOẠI</span><b id="st-1">0/5</b>
           </div>
           <div class="stat">
-            <span>SINH MẠNG CÒN LẠI</span><b id="st-hp">0</b>
+            <span>PHẦN 3 · BÀI HỌC KINH NGHIỆM</span><b id="st-2">0/4</b>
           </div>
-          <button id="btn-again">THANH TRA LẠI</button>
+          <button id="btn-again">CHƠI LẠI</button>
         </div>
       </div>
     </div>
@@ -609,110 +780,214 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script>
       /* ================================================================
-   THANH TRA VĨ MÔ — rapid-fire dossier inspection game
+   ĐOÀN KẾT QUỐC TẾ — trắc nghiệm Tư tưởng Hồ Chí Minh
    ================================================================ */
       "use strict";
 
+      const PARTS = [
+        {
+          short: "PHẦN 1 · LÝ LUẬN",
+          title: "PHẦN 1",
+          sub: "LÝ LUẬN TƯ TƯỞNG HỒ CHÍ MINH VỀ ĐOÀN KẾT QUỐC TẾ",
+          secs: 20,
+        },
+        {
+          short: "PHẦN 2 · THÀNH TỰU",
+          title: "PHẦN 2",
+          sub: "THÀNH TỰU ĐỐI NGOẠI THỰC TIỄN GẦN ĐÂY CỦA VIỆT NAM",
+          secs: 15,
+        },
+        {
+          short: "PHẦN 3 · BÀI HỌC",
+          title: "PHẦN 3",
+          sub: "SOI CHIẾU NGUYÊN TẮC & BÀI HỌC KINH NGHIỆM CỐT LÕI",
+          secs: 12,
+        },
+      ];
+
+      /* p: phần (0-2), t: câu hỏi, o: phương án, a: chỉ số đáp án đúng, e: giải thích */
       const QUESTIONS = [
         {
-          t: 'Mục tiêu tối thượng là: "Dân giàu, nước mạnh, dân chủ, công bằng, văn minh".',
-          a: true,
+          p: 0,
+          t: `Theo Giáo trình Tư tưởng Hồ Chí Minh, yếu tố nào tạo nên "Sức mạnh dân tộc"?`,
+          o: [
+            `Tiềm lực quân sự vượt trội và sự hỗ trợ tài chính từ nước ngoài`,
+            `Chủ nghĩa yêu nước, ý thức tự lực tự cường và tinh thần đại đoàn kết toàn dân`,
+            `Vị trí địa chính trị thuận lợi và tài nguyên thiên nhiên phong phú`,
+            `Sức mạnh của các trào lưu cách mạng và khoa học công nghệ toàn cầu`,
+          ],
+          a: 1,
+          e: `Bác Hồ xác định sức mạnh dân tộc trước hết là sức mạnh của chủ nghĩa yêu nước, ý thức tự lực tự cường và tinh thần đại đoàn kết.`,
         },
         {
-          t: "Đích đến cuối cùng là tối đa hóa lợi nhuận cho các siêu tập đoàn.",
-          a: false,
+          p: 0,
+          t: `"Sức mạnh thời đại" trong Tư tưởng Hồ Chí Minh bao gồm những nội dung nào?`,
+          o: [
+            `Tinh thần tự lực tự cường của nhân dân trong nước`,
+            `Truyền thống yêu nước chống ngoại xâm của dân tộc`,
+            `Phong trào cách mạng thế giới, trào lưu tiến bộ, hòa bình và khoa học - công nghệ`,
+            `Khối đại đoàn kết toàn dân tộc dưới sự lãnh đạo của Đảng`,
+          ],
+          a: 2,
+          e: `Sức mạnh thời đại là sức mạnh tổng hợp của các phong trào cách mạng thế giới, trào lưu hòa bình, tiến bộ và sự phát triển khoa học - kỹ thuật.`,
         },
         {
-          t: "Phát triển KTTT XHCN là để xây dựng cơ sở vật chất cho CNXH.",
-          a: true,
+          p: 0,
+          t: `Tháng 9/1947, khi trả lời nhà báo Mỹ S. Éli Mâysi, Chủ tịch Hồ Chí Minh đã tuyên bố phương châm đối ngoại nào?`,
+          o: [
+            `"Việt Nam muốn làm bạn với tất cả các nước xã hội chủ nghĩa"`,
+            `"Làm bạn với tất cả mọi nước dân chủ và không gây thù oán với một ai"`,
+            `"Sẵn sàng là bạn và là đối tác tin cậy của các cường quốc"`,
+            `"Chỉ hợp tác với các nước có cùng thể chế chính trị"`,
+          ],
+          a: 1,
+          e: `Tháng 9/1947, Bác tuyên bố chính sách đối ngoại nhất quán của Việt Nam là "làm bạn với tất cả mọi nước dân chủ và không gây thù oán với một ai".`,
         },
         {
-          t: "Chỉ cần tập trung tăng trưởng GDP, bỏ qua việc xây dựng quan hệ sản xuất.",
-          a: false,
+          p: 0,
+          t: `Mối quan hệ giữa độc lập, tự chủ và đoàn kết quốc tế theo Bác Hồ được xác định như thế nào?`,
+          o: [
+            `Đoàn kết quốc tế là quan trọng nhất, độc lập tự chủ là thứ yếu`,
+            `Độc lập tự chủ là tiền đề, nội lực quyết định; đoàn kết quốc tế tạo sức mạnh tổng hợp`,
+            `Chỉ cần tranh thủ sự giúp đỡ quốc tế thì sẽ có độc lập`,
+            `Độc lập tự chủ đồng nghĩa với việc không cần hợp tác quốc tế`,
+          ],
+          a: 1,
+          e: `Bác nhấn mạnh "phải tự giúp lấy mình trước", độc lập tự chủ là gốc để hợp tác bình đẳng và tranh thủ nguồn lực bên ngoài.`,
         },
         {
-          t: "Kinh tế tư nhân đóng vai trò chủ đạo, dẫn dắt toàn bộ nền kinh tế.",
-          a: false,
+          p: 0,
+          t: `Trong phương châm "Dĩ bất biến, ứng vạn biến", yếu tố "Dĩ bất biến" được hiểu là gì?`,
+          o: [
+            `Linh hoạt thay đổi đường lối theo sự biến động của thế giới`,
+            `Độc lập, chủ quyền, toàn vẹn lãnh thổ và lợi ích tối cao của dân tộc`,
+            `Giữ nguyên mọi sách lược ngoại giao không thay đổi`,
+            `Bắt buộc liên minh quân sự với một nước lớn`,
+          ],
+          a: 1,
+          e: `"Dĩ bất biến" chính là nguyên tắc kiên định giữ vững độc lập, chủ quyền và lợi ích dân tộc; còn "ứng vạn biến" là sự linh hoạt về sách lược.`,
         },
         {
-          t: "Đất đai tại VN thuộc sở hữu toàn dân, do Nhà nước đại diện chủ sở hữu.",
-          a: true,
+          p: 0,
+          t: `Nguyên tắc đoàn kết quốc tế "có lý, có tình" của Hồ Chí Minh đối với phong trào cộng sản và công nhân quốc tế dựa trên nền tảng nào?`,
+          o: [
+            `Chủ nghĩa Mác - Lênin và chủ nghĩa quốc tế vô sản`,
+            `Tình cảm cá nhân và sự nhượng bộ vô nguyên tắc`,
+            `Sự can thiệp vào công việc nội bộ của các nước khác`,
+            `Quyền lợi riêng biệt của từng đảng phái`,
+          ],
+          a: 0,
+          e: `Bác chủ trương đoàn kết trên nền tảng chủ nghĩa Mác - Lênin và chủ nghĩa quốc tế vô sản, tôn trọng lẫn nhau, vừa hợp lý vừa trọn tình đồng chí.`,
         },
         {
-          t: "Kinh tế Nhà nước là lực lượng vật chất để Nhà nước điều tiết vĩ mô.",
-          a: true,
+          p: 1,
+          t: `Đến nay, Việt Nam đã thiết lập quan hệ ngoại giao chính thức với bao nhiêu quốc gia thành viên Liên Hợp Quốc?`,
+          o: [`150 quốc gia`, `175 quốc gia`, `193 quốc gia`, `200 quốc gia`],
+          a: 2,
+          e: `Việt Nam đã mở rộng mạng lưới đối ngoại, thiết lập quan hệ ngoại giao chính thức với 193/193 quốc gia thành viên LHQ.`,
         },
         {
-          t: "Các thành phần kinh tế bình đẳng, nhưng DN FDI được ưu tiên cao nhất.",
-          a: false,
+          p: 1,
+          t: `Việt Nam đã xác lập khuôn khổ "Đối tác Chiến lược Toàn diện" với bao nhiêu nước Ủy viên Thường trực HĐBA Liên Hợp Quốc (P5)?`,
+          o: [`2/5 nước`, `3/5 nước`, `4/5 nước`, `5/5 nước (Trung Quốc, Nga, Mỹ, Anh, Pháp)`],
+          a: 3,
+          e: `Việt Nam đã hoàn tất xác lập quan hệ Đối tác Chiến lược Toàn diện với toàn bộ 5 nước Ủy viên Thường trực HĐBA LHQ và nhiều cường quốc lớn.`,
         },
         {
-          t: "Nhà nước không được can thiệp vào giá cả, phải để thị trường tự do 100%.",
-          a: false,
+          p: 1,
+          t: `Khẳng định "Đất nước ta chưa bao giờ có được cơ đồ, tiềm lực, vị thế và uy tín quốc tế như ngày nay" nằm trong văn kiện nào?`,
+          o: [
+            `Văn kiện Đại hội X`,
+            `Văn kiện Đại hội XI`,
+            `Văn kiện Đại hội XII`,
+            `Văn kiện Đại hội XIII`,
+          ],
+          a: 3,
+          e: `Văn kiện Đại hội XIII của Đảng (năm 2021) đã tổng kết và khẳng định vị thế quốc tế vượt trội của đất nước.`,
         },
         {
-          t: '"Bàn tay vô hình" là đủ để nền kinh tế tự ổn định, không cần Nhà nước.',
-          a: false,
+          p: 1,
+          t: `Việc Việt Nam tích cực cử lực lượng tham gia Gìn giữ hòa bình LHQ (PKO) tại Nam Sudan thể hiện hình ảnh Việt Nam là:`,
+          o: [
+            `Một quốc gia chỉ chú trọng phát triển kinh tế nội địa`,
+            `Bạn, đối tác tin cậy và thành viên có trách nhiệm của cộng đồng quốc tế`,
+            `Quốc gia can thiệp vào công việc nội bộ của nước khác`,
+            `Quốc gia tham gia vào các khối liên minh quân sự`,
+          ],
+          a: 1,
+          e: `Hoạt động PKO khẳng định hình ảnh Việt Nam yêu chuộng hòa bình, có trách nhiệm đóng góp vào an ninh chung của thế giới.`,
         },
         {
-          t: "Nhà nước quản lý bằng pháp luật, chiến lược, quy hoạch và kế hoạch.",
-          a: true,
+          p: 1,
+          t: `Trong hội nhập kinh tế quốc tế, Việt Nam đã ký kết và thực thi khoảng bao nhiêu Hiệp định Thương mại Tự do (FTA)?`,
+          o: [
+            `5 FTA`,
+            `10 FTA`,
+            `16 FTA thế hệ mới (CPTPP, EVFTA, RCEP...)`,
+            `30 FTA`,
+          ],
+          a: 2,
+          e: `Việt Nam đã tham gia 16 FTA thế hệ mới, kết nối kinh tế sâu rộng với hơn 60 nền kinh tế lớn trên thế giới.`,
         },
         {
-          t: "Mục đích can thiệp là để khắc phục những khuyết tật của kinh tế thị trường.",
-          a: true,
+          p: 2,
+          t: `Hình tượng "Ngoại giao Cây tre Việt Nam" do Đảng ta xướng xuất có đặc trưng cốt lõi là gì?`,
+          o: [
+            `"Gốc vững, thân chắc, cành uyển chuyển"`,
+            `"Rễ nông, thân mềm, cành ngả nghiêng"`,
+            `"Gốc cứng, thân thẳng, cành không đổi"`,
+            `"Linh hoạt về mục tiêu, cứng nhắc về sách lược"`,
+          ],
+          a: 0,
+          e: `"Gốc vững" là lợi ích quốc gia - dân tộc; "Thân chắc" là bản lĩnh, nội lực; "Cành uyển chuyển" là sách lược linh hoạt.`,
         },
         {
-          t: "Phân phối thu nhập dựa trên kết quả lao động và hiệu quả kinh tế.",
-          a: true,
+          p: 2,
+          t: `Bài học kinh nghiệm đối ngoại nào được đánh giá là có ý nghĩa sống còn nhất với Việt Nam hiện nay?`,
+          o: [
+            `Dựa vào sự bảo hộ an ninh của một cường quốc duy nhất`,
+            `Giữ vững độc lập, tự chủ về đường lối gắn liền với đa phương hóa, đa dạng hóa quan hệ`,
+            `Đóng cửa nền kinh tế để tránh tác động từ bên ngoài`,
+            `Chỉ tập trung quan hệ với các nước láng giềng`,
+          ],
+          a: 1,
+          e: `Độc lập tự chủ giúp Việt Nam không bị kéo vào phe phái, còn đa phương hóa giúp tối đa hóa bạn bè và tạo thế cân bằng chiến lược.`,
         },
         {
-          t: "Phân phối công bằng có nghĩa là chia đều thu nhập cho tất cả mọi người.",
-          a: false,
+          p: 2,
+          t: `Vì sao việc tạo dựng "mạng lưới lợi ích đan xen" với các nước lớn lại giúp bảo vệ an ninh quốc gia?`,
+          o: [
+            `Vì các nước lớn sẽ tự giải quyết tranh chấp giúp Việt Nam`,
+            `Vì xâm phạm chủ quyền Việt Nam sẽ gây tổn hại đến lợi ích của nhiều bên, tạo thế tự vệ từ xa`,
+            `Vì giúp Việt Nam không cần đầu tư cho quốc phòng`,
+            `Vì làm cho các nước lớn phụ thuộc hoàn toàn vào Việt Nam`,
+          ],
+          a: 1,
+          e: `Lợi ích đan xen khiến các quốc gia đều có động lực giữ gìn môi trường hòa bình, ổn định và hợp tác tại Việt Nam.`,
         },
         {
-          t: "Không ai bị bỏ lại phía sau nhờ hệ thống phân phối qua an sinh xã hội.",
-          a: true,
-        },
-        {
-          t: "Tuyệt đối cấm việc phân phối thu nhập dựa trên mức đóng góp vốn cổ phần.",
-          a: false,
-        },
-        {
-          t: "Có thể tạm thời hy sinh môi trường để đổi lấy tăng trưởng kinh tế nhanh.",
-          a: false,
-        },
-        {
-          t: "Đợi đến khi kinh tế thật giàu có rồi mới bắt đầu thực hiện công bằng xã hội.",
-          a: false,
-        },
-        {
-          t: "Gắn tăng trưởng với tiến bộ và công bằng xã hội ngay trong từng chính sách.",
-          a: true,
-        },
-        {
-          t: "Tăng trưởng kinh tế phải đi đôi với phát triển văn hóa, y tế, giáo dục.",
-          a: true,
+          p: 2,
+          t: `Trách nhiệm thiết thực nhất của sinh viên trong việc phát huy tư tưởng đoàn kết quốc tế hiện nay là gì?`,
+          o: [
+            `Chỉ tập trung học lý thuyết, không cần giao lưu quốc tế`,
+            `Rèn luyện ngoại ngữ, kỹ năng số, "hội nhập nhưng không hòa tan" và làm đại sứ văn hóa`,
+            `Tiếp thu toàn bộ văn hóa ngoại nhập mà không cần chọn lọc`,
+            `Hạn chế sử dụng không gian mạng để tránh rủi ro`,
+          ],
+          a: 1,
+          e: `Sinh viên phát huy vai trò ngoại giao nhân dân bằng tri thức, ngoại ngữ, bảo vệ bản sắc dân tộc và lan tỏa hình ảnh Việt Nam thân thiện ra thế giới.`,
         },
       ];
 
-      const PHASES = [
-        { at: 0, title: "VÒNG 1 · SƠ KHẢO", sub: "10 GIÂY MỖI HỒ SƠ" },
-        { at: 5, title: "VÒNG 2 · TĂNG TỐC", sub: "CHỈ CÒN 8 GIÂY" },
-        {
-          at: 15,
-          title: "VÒNG 3 · NƯỚC RÚT",
-          sub: "5 GIÂY — ĐÓNG DẤU NGAY!",
-        },
-      ];
-
-      const INK = "#141414",
-        PAPER = "#F4F2EC",
-        GOLD = "#FFC800",
-        RED = "#EE3A2C",
-        WHITE = "#FFFFFF";
+      const N = QUESTIONS.length;
+      const LETTERS = ["A", "B", "C", "D"];
+      const INK = "#1C0A06",
+        PAPER = "#FFF4D6",
+        GOLD = "#FFCD00",
+        RED = "#DA251D",
+        LACQUER = "#8E1414";
       const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const timerFor = (i) => (i < 5 ? 10 : i < 15 ? 8 : 5);
+      const pad2 = (n) => String(n).padStart(2, "0");
 
       /* ---------------- audio (tiny synth) ---------------- */
       let ac = null,
@@ -743,6 +1018,19 @@
       const sndWin = () =>
         [523, 659, 784, 1047].forEach((f, i) => beep(f, 0.16, i * 0.11));
 
+      /* ---------------- start screen sunburst ---------------- */
+      (function buildRays() {
+        const svg = document.getElementById("rays");
+        const n = 18;
+        let html = "";
+        for (let i = 0; i < n; i++) {
+          const a0 = (i / n) * Math.PI * 2,
+            a1 = a0 + Math.PI / n;
+          html += `<polygon points="0,0 ${Math.cos(a0) * 150},${Math.sin(a0) * 150} ${Math.cos(a1) * 150},${Math.sin(a1) * 150}"/>`;
+        }
+        svg.innerHTML = html;
+      })();
+
       /* ---------------- three.js scene ---------------- */
       const stage = document.getElementById("stage");
       const glCanvas = document.getElementById("gl");
@@ -759,14 +1047,14 @@
       function resize() {
         const w = stage.clientWidth,
           h = stage.clientHeight;
+        if (!w || !h) return;
         renderer.setSize(w, h, false);
         camera.aspect = w / h;
-        camera.position.z = Math.max(8.4, 6.1 / camera.aspect);
+        camera.position.z = Math.max(6.7, 4.5 / camera.aspect);
         camera.updateProjectionMatrix();
       }
       addEventListener("resize", resize);
 
-      /* card back texture (shared) */
       function starPath(ctx, cx, cy, rOut, rIn) {
         ctx.beginPath();
         for (let i = 0; i < 10; i++) {
@@ -779,34 +1067,39 @@
         }
         ctx.closePath();
       }
+
+      /* card back: the flag — red field, gold star */
       function makeBackTexture() {
         const c = document.createElement("canvas");
         c.width = 768;
         c.height = 1024;
         const x = c.getContext("2d");
-        x.fillStyle = GOLD;
+        x.fillStyle = RED;
         x.fillRect(0, 0, 768, 1024);
         x.lineWidth = 22;
         x.strokeStyle = INK;
         x.strokeRect(11, 11, 746, 1002);
         x.lineWidth = 6;
+        x.strokeStyle = GOLD;
         x.strokeRect(46, 46, 676, 932);
-        x.fillStyle = INK;
-        starPath(x, 384, 430, 190, 76);
+        starPath(x, 384, 450, 210, 84);
+        x.fillStyle = GOLD;
         x.fill();
+        x.lineWidth = 8;
+        x.strokeStyle = INK;
+        x.stroke();
         x.textAlign = "center";
-        x.font = '700 30px "IBM Plex Mono", monospace';
-        x.fillText("BỘ HỒ SƠ KIỂM ĐỊNH · MLN122", 384, 130);
-        x.font = "96px Anton, sans-serif";
-        x.fillText("THANH TRA", 384, 780);
-        x.fillText("VĨ MÔ", 384, 890);
+        x.fillStyle = GOLD;
+        x.font = '700 28px "IBM Plex Mono", monospace';
+        x.fillText("TƯ TƯỞNG HỒ CHÍ MINH", 384, 128);
+        x.font = "92px Anton, sans-serif";
+        x.fillText("ĐOÀN KẾT", 384, 800);
+        x.fillText("QUỐC TẾ", 384, 905);
         const tex = new THREE.CanvasTexture(c);
         tex.encoding = THREE.sRGBEncoding;
         return tex;
       }
 
-      /* card front drawing */
-      const pad2 = (n) => String(n).padStart(2, "0");
       function wrapLines(x, text, maxW) {
         const words = text.split(" ");
         const lines = [];
@@ -821,89 +1114,94 @@
         if (line) lines.push(line);
         return lines;
       }
+
+      /* card front: a paper document with a red masthead */
       function drawFront(card, q, idx) {
         const x = card.ctx,
           W = 768,
           H = 1024;
         x.setTransform(1, 0, 0, 1, 0, 0);
-        x.fillStyle = WHITE;
+        x.fillStyle = PAPER;
         x.fillRect(0, 0, W, H);
         x.lineWidth = 20;
         x.strokeStyle = INK;
         x.strokeRect(10, 10, W - 20, H - 20);
-        /* header */
-        x.fillStyle = GOLD;
-        x.fillRect(20, 20, W - 40, 118);
+        /* masthead */
+        x.fillStyle = RED;
+        x.fillRect(20, 20, W - 40, 128);
         x.fillStyle = INK;
-        x.fillRect(20, 138, W - 40, 8);
+        x.fillRect(20, 148, W - 40, 8);
         x.textAlign = "left";
-        x.fillStyle = INK;
-        x.font = '700 36px "IBM Plex Mono", monospace';
-        x.fillText(`HỒ SƠ SỐ ${pad2(idx + 1)}/20`, 52, 93);
-        x.fillRect(586, 46, 130, 64);
         x.fillStyle = GOLD;
-        x.textAlign = "center";
-        x.font = "38px Anton, sans-serif";
-        x.fillText("MẬT", 651, 92);
+        x.font = "64px Anton, sans-serif";
+        x.fillText(`CÂU ${pad2(idx + 1)}`, 52, 112);
+        x.font = '700 30px "IBM Plex Mono", monospace';
+        x.fillText(`/${N}`, 236, 112);
+        starPath(x, 664, 84, 46, 18);
+        x.fill();
+        x.lineWidth = 4;
+        x.strokeStyle = INK;
+        x.stroke();
+        /* part label */
+        x.fillStyle = RED;
+        x.font = '700 24px "IBM Plex Mono", monospace';
+        x.fillText(PARTS[q.p].short, 52, 206);
+        x.fillStyle = INK;
+        x.fillRect(52, 222, 140, 5);
         /* question */
         x.fillStyle = INK;
-        x.textAlign = "center";
-        let size = 56,
+        x.textAlign = "left";
+        let size = 60,
           lines;
         do {
           x.font = `800 ${size}px "Be Vietnam Pro", sans-serif`;
-          lines = wrapLines(x, q.t, 620);
-          if (lines.length * (size * 1.32) <= 560) break;
-          size -= 4;
-        } while (size > 34);
-        const lh = size * 1.32;
-        let ty = 500 - ((lines.length - 1) * lh) / 2;
+          lines = wrapLines(x, q.t, 660);
+          if (lines.length * (size * 1.3) <= 600) break;
+          size -= 3;
+        } while (size > 36);
+        const lh = size * 1.3;
+        let ty = 560 - ((lines.length - 1) * lh) / 2 + size * 0.35;
         for (const ln of lines) {
-          x.fillText(ln, W / 2, ty);
+          x.fillText(ln, 54, ty);
           ty += lh;
         }
         /* footer */
         x.fillStyle = INK;
-        x.fillRect(20, 842, W - 40, 6);
-        x.textAlign = "left";
-        x.font = '500 24px "IBM Plex Mono", monospace';
-        x.fillText("NHẬN ĐỊNH CẦN KIỂM CHỨNG", 52, 906);
-        x.fillText("PHÁN QUYẾT: ĐÚNG ✓ / SAI ✗", 52, 946);
-        /* deterministic barcode from question text */
-        let bx = 520;
-        for (let i = 0; i < 26 && bx < 710; i++) {
-          const wCh = (q.t.charCodeAt(i % q.t.length) % 3) + 2;
-          if (i % 2 === 0) {
-            x.fillRect(bx, 878, wCh * 2, 74);
-          }
-          bx += wCh * 2 + 4;
-        }
+        x.fillRect(20, 900, W - 40, 6);
         x.font = '500 22px "IBM Plex Mono", monospace';
-        x.fillText(`MST·2026·${pad2(idx + 1)}`, 520, 984);
+        x.fillText("CHỌN MỘT TRONG BỐN PHƯƠNG ÁN A · B · C · D", 52, 958);
         card.tex.needsUpdate = true;
       }
-      function drawStamp(card, kind) {
+
+      function drawStamp(card, kind, letter) {
         const x = card.ctx,
           W = 768;
         const label =
-          kind === "ok" ? "CHÍNH XÁC" : kind === "late" ? "QUÁ HẠN" : "SAI LẦM";
+          kind === "ok"
+            ? "CHÍNH XÁC"
+            : kind === "late"
+              ? "HẾT GIỜ"
+              : "CHƯA ĐÚNG";
         x.save();
-        x.translate(W / 2, 512);
-        x.rotate(-0.14);
-        x.globalAlpha = 0.96;
-        const w = 580,
-          h = 180;
-        x.fillStyle = kind === "ok" ? GOLD : RED;
+        x.translate(W / 2, 560);
+        x.rotate(-0.13);
+        x.globalAlpha = 0.97;
+        const w = 600,
+          h = 220;
+        x.fillStyle = kind === "ok" ? GOLD : INK;
         x.fillRect(-w / 2, -h / 2, w, h);
         x.lineWidth = 12;
-        x.strokeStyle = INK;
+        x.strokeStyle = kind === "ok" ? INK : RED;
         x.strokeRect(-w / 2, -h / 2, w, h);
         x.lineWidth = 4;
         x.strokeRect(-w / 2 + 16, -h / 2 + 16, w - 32, h - 32);
-        x.fillStyle = INK;
         x.textAlign = "center";
-        x.font = "104px Anton, sans-serif";
-        x.fillText(label, 0, 38);
+        x.fillStyle = kind === "ok" ? RED : PAPER;
+        x.font = "100px Anton, sans-serif";
+        x.fillText(label, 0, 22);
+        x.font = '700 28px "IBM Plex Mono", monospace';
+        x.fillStyle = kind === "ok" ? INK : GOLD;
+        x.fillText(`ĐÁP ÁN ĐÚNG: ${letter}`, 0, 76);
         x.restore();
         card.tex.needsUpdate = true;
       }
@@ -916,7 +1214,8 @@
         const tex = new THREE.CanvasTexture(c);
         tex.encoding = THREE.sRGBEncoding;
         tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
-        const side = new THREE.MeshBasicMaterial({ color: INK });
+        const inkLin = new THREE.Color(INK).convertSRGBToLinear();
+        const side = new THREE.MeshBasicMaterial({ color: inkLin });
         const front = new THREE.MeshBasicMaterial({ map: tex });
         const back = new THREE.MeshBasicMaterial({ map: backTex });
         const mesh = new THREE.Mesh(new THREE.BoxGeometry(3, 4, 0.09), [
@@ -929,9 +1228,9 @@
         ]);
         const shadow = new THREE.Mesh(
           new THREE.BoxGeometry(3, 4, 0.02),
-          new THREE.MeshBasicMaterial({ color: INK }),
+          new THREE.MeshBasicMaterial({ color: inkLin }),
         );
-        shadow.position.set(0.24, -0.28, -0.1);
+        shadow.position.set(0.2, -0.24, -0.1);
         const sway = new THREE.Group();
         sway.add(shadow);
         sway.add(mesh);
@@ -952,30 +1251,26 @@
         if (!RM)
           for (const c of cards) {
             if (!c.outer.visible) continue;
-            c.sway.rotation.y = Math.sin(t * 0.0011 + c.phase) * 0.05;
-            c.sway.rotation.x = Math.cos(t * 0.0009 + c.phase) * 0.028;
-            c.sway.position.y = Math.sin(t * 0.0013 + c.phase) * 0.06;
+            c.sway.rotation.y = Math.sin(t * 0.0011 + c.phase) * 0.045;
+            c.sway.rotation.x = Math.cos(t * 0.0009 + c.phase) * 0.025;
+            c.sway.position.y = Math.sin(t * 0.0013 + c.phase) * 0.05;
           }
         renderer.render(scene, camera);
       });
 
       /* ---------------- HUD ---------------- */
-      const HEART_PATH =
-        "M12 21S4 15.7 4 10a4.6 4.6 0 0 1 8-3 4.6 4.6 0 0 1 8 3c0 5.7-8 11-8 11z";
-      const heartsBox = document.getElementById("hearts");
-      function buildHearts() {
-        heartsBox.innerHTML = "";
-        for (let i = 0; i < 3; i++) {
-          const s = document.createElement("span");
-          s.className = "heart";
-          s.innerHTML = `<svg viewBox="0 0 24 24"><path d="${HEART_PATH}"/></svg>`;
-          heartsBox.appendChild(s);
-        }
-      }
+      const partEl = document.getElementById("part");
       const counterEl = document.getElementById("counter");
       const scoreEl = document.getElementById("score");
+      const qtextEl = document.getElementById("qtext");
+      const optsEl = document.getElementById("opts");
+      const explainEl = document.getElementById("explain");
+      const exStrip = document.getElementById("ex-strip");
+      const exText = document.getElementById("ex-text");
+      const btnNext = document.getElementById("btn-next");
       function updateHUD() {
-        counterEl.textContent = `HỒ SƠ ${pad2(qi + 1)}/20`;
+        partEl.textContent = PARTS[QUESTIONS[qi].p].sub;
+        counterEl.textContent = `CÂU ${pad2(qi + 1)}/${N}`;
         scoreEl.textContent = `ĐIỂM ${score}`;
       }
 
@@ -989,11 +1284,11 @@
           p.style.top = cy + "px";
           document.body.appendChild(p);
           gsap.to(p, {
-            x: (Math.random() - 0.5) * 220,
-            y: (Math.random() - 0.5) * 220 - 40,
+            x: (Math.random() - 0.5) * 240,
+            y: (Math.random() - 0.5) * 240 - 40,
             rotation: Math.random() * 360,
             scale: 0,
-            duration: 0.6 + Math.random() * 0.3,
+            duration: 0.7 + Math.random() * 0.3,
             ease: "power2.out",
             onComplete: () => p.remove(),
           });
@@ -1002,21 +1297,19 @@
 
       /* ---------------- game state ---------------- */
       let qi = -1,
-        hp = 3,
         score = 0,
+        partScore = [0, 0, 0],
         busy = true,
+        answered = false,
         playing = false;
       let timerTween = null;
       const timerFill = document.getElementById("timer-fill");
       const flash = document.getElementById("flash");
-      const truth = document.getElementById("truth");
-      const btnSai = document.getElementById("btn-sai");
-      const btnDung = document.getElementById("btn-dung");
 
-      function showBanner(ph) {
+      function showBanner(part) {
         return new Promise((res) => {
-          document.getElementById("banner-title").textContent = ph.title;
-          document.getElementById("banner-sub").textContent = ph.sub;
+          document.getElementById("banner-title").textContent = part.title;
+          document.getElementById("banner-sub").textContent = part.sub;
           beep(392, 0.1);
           beep(523, 0.12, 0.1);
           gsap
@@ -1030,14 +1323,14 @@
               xPercent: 210,
               duration: 0.32,
               ease: "power4.in",
-              delay: 0.75,
+              delay: 1.1,
             })
             .set("#banner-inner", { xPercent: -105 });
         });
       }
 
       function startTimer() {
-        const d = timerFor(qi) * (RM ? 1.15 : 1);
+        const d = PARTS[QUESTIONS[qi].p].secs * (RM ? 1.15 : 1);
         timerFill.classList.remove("hot");
         timerTween = gsap.fromTo(
           timerFill,
@@ -1047,29 +1340,64 @@
             duration: d,
             ease: "none",
             onUpdate() {
-              if (this.progress() > 0.72) timerFill.classList.add("hot");
+              if (this.progress() > 0.75) timerFill.classList.add("hot");
             },
-            onComplete: () => resolve(null),
+            onComplete: () => choose(null),
           },
         );
       }
 
+      function renderOptions(q) {
+        optsEl.innerHTML = "";
+        q.o.forEach((txt, i) => {
+          const b = document.createElement("button");
+          b.className = "opt";
+          b.disabled = true;
+          b.innerHTML = `<span class="letter">${LETTERS[i]}</span><span class="txt"></span>`;
+          b.querySelector(".txt").textContent = txt;
+          b.addEventListener("click", () => {
+            sndClick();
+            choose(i);
+          });
+          optsEl.appendChild(b);
+        });
+      }
+
       async function nextCard() {
         qi++;
-        if (qi >= QUESTIONS.length) return endGame(true);
+        if (qi >= N) return endGame();
+        const q = QUESTIONS[qi];
+        const firstOfPart = qi === 0 || QUESTIONS[qi - 1].p !== q.p;
+        answered = false;
+        explainEl.hidden = true;
         updateHUD();
-        const ph = PHASES.find((p) => p.at === qi);
-        if (ph) await showBanner(ph);
+        qtextEl.textContent = q.t;
+        renderOptions(q);
+        gsap.set(timerFill, { scaleX: 1 });
+        timerFill.classList.remove("hot");
+        if (firstOfPart) await showBanner(PARTS[q.p]);
 
         cur ^= 1;
         const card = cards[cur];
-        drawFront(card, QUESTIONS[qi], qi);
+        drawFront(card, q, qi);
         card.outer.position.set(0, 0, 0);
         card.outer.rotation.set(0, -Math.PI, 0);
         card.outer.scale.setScalar(0.01);
         card.outer.visible = true;
 
         const D = RM ? 0.5 : 1;
+        gsap.fromTo(
+          optsEl.children,
+          { x: 40, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.35 * D,
+            stagger: 0.06,
+            ease: "power3.out",
+            delay: 0.2 * D,
+          },
+        );
         gsap.to(card.outer.scale, {
           x: 1,
           y: 1,
@@ -1083,207 +1411,183 @@
           ease: "power3.out",
           onComplete() {
             busy = false;
+            for (const b of optsEl.children) b.disabled = false;
             startTimer();
           },
         });
       }
 
-      function resolve(choice) {
-        if (busy || !playing) return;
+      function choose(choice) {
+        if (busy || !playing || answered) return;
         busy = true;
+        answered = true;
         if (timerTween) timerTween.kill();
 
         const q = QUESTIONS[qi];
-        const correct = choice !== null && choice === q.a;
+        const correct = choice === q.a;
         const kind = choice === null ? "late" : correct ? "ok" : "bad";
         const card = cards[cur];
-        const D = RM ? 0.5 : 1;
 
-        drawStamp(card, kind);
+        [...optsEl.children].forEach((b, i) => {
+          b.disabled = true;
+          if (i === q.a) b.classList.add("correct");
+          else if (i === choice) b.classList.add("wrong");
+          else b.classList.add("dim");
+        });
+
+        drawStamp(card, kind, LETTERS[q.a]);
         gsap.fromTo(
           card.outer.scale,
-          { x: 1.09, y: 1.09, z: 1.09 },
+          { x: 1.08, y: 1.08, z: 1.08 },
           { x: 1, y: 1, z: 1, duration: 0.24, ease: "power2.out" },
         );
-
-        flash.style.background = correct ? GOLD : RED;
+        flash.style.background = correct ? GOLD : INK;
         gsap.fromTo(
           flash,
-          { opacity: 0.8 },
+          { opacity: correct ? 0.75 : 0.55 },
           { opacity: 0, duration: 0.4, ease: "power1.out" },
         );
 
         if (correct) {
           score++;
+          partScore[q.p]++;
           sndCorrect();
           gsap.fromTo(
             scoreEl,
             { scale: 1.35 },
             { scale: 1, duration: 0.35, ease: "back.out(2)" },
           );
-          const r = stage.getBoundingClientRect();
-          burst(r.left + r.width / 2, r.top + r.height / 2, GOLD, 7);
+          const r = optsEl.children[q.a].getBoundingClientRect();
+          burst(r.left + 30, r.top + r.height / 2, GOLD, 9);
         } else {
-          hp--;
           sndWrong();
-          const heart = heartsBox.children[hp];
-          const hr = heart.getBoundingClientRect();
-          burst(hr.left + hr.width / 2, hr.top + hr.height / 2, RED, 8);
-          gsap
-            .timeline()
-            .to(heart, { rotation: 18, scale: 1.35, duration: 0.12 })
-            .to(heart, { rotation: -14, duration: 0.1 })
-            .add(() => heart.classList.add("dead"))
-            .to(heart, {
-              rotation: 0,
-              scale: 0.9,
-              duration: 0.22,
-              ease: "back.out(3)",
-            });
           if (!RM)
             gsap.fromTo(
               "#app",
-              { x: -13 },
+              { x: -12 },
               { x: 0, duration: 0.5, ease: "elastic.out(1,.28)" },
             );
-          /* teach the right answer */
-          truth.textContent = `ĐÁP ÁN CỦA CỤC: ${q.a ? "ĐÚNG ✓" : "SAI ✗"}`;
-          gsap
-            .timeline()
-            .to(truth, {
-              scale: 1,
-              duration: 0.28,
-              ease: "back.out(2)",
-              delay: 0.15,
-            })
-            .to(truth, {
-              scale: 0,
-              duration: 0.2,
-              ease: "power2.in",
-              delay: 1.1,
-            });
         }
         updateHUD();
 
-        /* fly the dossier off */
-        const dir = choice === true ? 1 : choice === false ? -1 : 0;
-        gsap.delayedCall(0.34 * D, () => {
-          if (dir !== 0) {
-            gsap.to(card.outer.position, {
-              x: dir * 10,
-              y: 1.4,
-              duration: 0.55 * D,
-              ease: "power2.in",
-            });
-            gsap.to(card.outer.rotation, {
-              y: dir * 2.8,
-              z: dir * 0.9,
-              duration: 0.55 * D,
-              ease: "power2.in",
-              onComplete() {
-                card.outer.visible = false;
-              },
-            });
-          } else {
-            gsap.to(card.outer.position, {
-              y: -9,
-              duration: 0.55 * D,
-              ease: "power2.in",
-            });
-            gsap.to(card.outer.rotation, {
-              z: 1.3,
-              x: 0.8,
-              duration: 0.55 * D,
-              ease: "power2.in",
-              onComplete() {
-                card.outer.visible = false;
-              },
-            });
-          }
-          if (hp <= 0) {
-            gsap.delayedCall(0.6 * D, () => endGame(false));
-          } else {
-            gsap.delayedCall(0.3 * D, nextCard);
-          }
+        /* explanation */
+        explainEl.classList.toggle("miss", !correct);
+        exStrip.textContent = correct
+          ? "★ CHÍNH XÁC · +1 ĐIỂM"
+          : `${choice === null ? "HẾT GIỜ" : "CHƯA ĐÚNG"} · ĐÁP ÁN ${LETTERS[q.a]}`;
+        exText.innerHTML = "<b>GIẢI THÍCH</b>";
+        exText.appendChild(document.createTextNode(q.e));
+        btnNext.textContent =
+          qi === N - 1 ? "XEM KẾT QUẢ →" : "CÂU TIẾP THEO →";
+        explainEl.hidden = false;
+        gsap.fromTo(
+          explainEl,
+          { y: 24, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.35, ease: "power3.out" },
+        );
+        explainEl.scrollIntoView({ block: "nearest", behavior: RM ? "auto" : "smooth" });
+        busy = false;
+        btnNext.focus({ preventScroll: true });
+      }
+
+      function advance() {
+        if (busy || !playing || !answered) return;
+        busy = true;
+        sndClick();
+        const card = cards[cur];
+        const D = RM ? 0.5 : 1;
+        gsap.to(explainEl, { opacity: 0, duration: 0.2 });
+        gsap.to(optsEl.children, {
+          x: -30,
+          opacity: 0,
+          duration: 0.2,
+          stagger: 0.03,
+        });
+        gsap.to(card.outer.position, {
+          x: -10,
+          y: 1.4,
+          duration: 0.55 * D,
+          ease: "power2.in",
+        });
+        gsap.to(card.outer.rotation, {
+          y: -2.8,
+          z: -0.9,
+          duration: 0.55 * D,
+          ease: "power2.in",
+          onComplete() {
+            card.outer.visible = false;
+            gsap.set(card.outer.position, { x: 0, y: 0 });
+            nextCard();
+          },
         });
       }
 
       /* ---------------- end / restart ---------------- */
-      function rank(win) {
-        if (win && score === 20 && hp === 3) return "THANH TRA HUYỀN THOẠI";
-        if (win && score >= 18) return "THANH TRA XUẤT SẮC";
-        if (win) return "THANH TRA CHÍNH NGẠCH";
-        if (score >= 12) return "THANH TRA VIÊN TRIỂN VỌNG";
-        if (score >= 6) return "TẬP SỰ CẦN KÈM CẶP";
+      function rank() {
+        if (score === N) return "NHÀ NGOẠI GIAO XUẤT SẮC";
+        if (score >= 12) return "ĐẠI SỨ HỮU NGHỊ";
+        if (score >= 9) return "SỨ GIẢ TRIỂN VỌNG";
+        if (score >= 5) return "CẦN ÔN THÊM GIÁO TRÌNH";
         return "MỜI ĐỌC LẠI GIÁO TRÌNH";
       }
-      function endGame(win) {
+      function endGame() {
         playing = false;
         busy = true;
         if (timerTween) timerTween.kill();
         gsap.set(timerFill, { scaleX: 0 });
-        const popup = document.getElementById("popup");
-        popup.classList.toggle("lose", !win);
-        document.getElementById("popup-strip").textContent = win
-          ? "HOÀN TẤT THANH TRA"
-          : "ĐÌNH CHỈ THANH TRA";
-        document.getElementById("popup-verdict").textContent = rank(win);
-        document.getElementById("st-done").textContent =
-          `${Math.min(qi + (win ? 0 : 1), 20)}/20`;
-        document.getElementById("st-score").textContent = score;
-        document.getElementById("st-hp").textContent = "♥".repeat(hp) || "0";
+        const totals = [0, 0, 0];
+        QUESTIONS.forEach((q) => totals[q.p]++);
+        document.getElementById("popup-total").innerHTML =
+          `${score}<small>/${N}</small>`;
+        document.getElementById("popup-verdict").textContent = rank();
+        for (let i = 0; i < 3; i++)
+          document.getElementById(`st-${i}`).textContent =
+            `${partScore[i]}/${totals[i]}`;
         const ov = document.getElementById("overlay");
         ov.style.display = "flex";
+        const popup = document.getElementById("popup");
         gsap.fromTo(
           popup,
           { scale: 0.6, rotation: -3 },
           { scale: 1, rotation: 0, duration: 0.45, ease: "back.out(1.8)" },
         );
-        if (win) {
-          sndWin();
-          for (let i = 0; i < 5; i++) {
-            gsap.delayedCall(i * 0.18, () =>
-              burst(
-                innerWidth * 0.2 + Math.random() * innerWidth * 0.6,
-                innerHeight * 0.25 + Math.random() * innerHeight * 0.3,
-                [GOLD, RED, INK][i % 3],
-                10,
-              ),
-            );
-          }
-        } else sndWrong();
+        document.getElementById("btn-again").focus({ preventScroll: true });
+        sndWin();
+        for (let i = 0; i < 6; i++) {
+          gsap.delayedCall(i * 0.16, () =>
+            burst(
+              innerWidth * 0.2 + Math.random() * innerWidth * 0.6,
+              innerHeight * 0.2 + Math.random() * innerHeight * 0.3,
+              i % 2 ? GOLD : RED,
+              10,
+            ),
+          );
+        }
       }
       function restart() {
         document.getElementById("overlay").style.display = "none";
         for (const c of cards) c.outer.visible = false;
         qi = -1;
-        hp = 3;
         score = 0;
+        partScore = [0, 0, 0];
         playing = true;
-        buildHearts();
-        updateHUD();
+        busy = true;
         sndClick();
         nextCard();
       }
 
       /* ---------------- input ---------------- */
-      btnSai.addEventListener("click", () => {
-        sndClick();
-        resolve(false);
-      });
-      btnDung.addEventListener("click", () => {
-        sndClick();
-        resolve(true);
-      });
+      btnNext.addEventListener("click", advance);
       addEventListener("keydown", (e) => {
         if (!playing) return;
-        if (e.key === "ArrowLeft") {
+        const k = e.key.toLowerCase();
+        const idx = "abcd".indexOf(k) >= 0 ? "abcd".indexOf(k) : "1234".indexOf(k);
+        if (!answered && idx >= 0 && k.length === 1) {
           sndClick();
-          resolve(false);
-        }
-        if (e.key === "ArrowRight") {
-          sndClick();
-          resolve(true);
+          choose(idx);
+        } else if (answered && (e.key === "Enter" || e.key === " " || e.key === "ArrowRight")) {
+          e.preventDefault();
+          advance();
         }
       });
       document.getElementById("btn-snd").addEventListener("click", function () {
@@ -1293,16 +1597,22 @@
       document.getElementById("btn-again").addEventListener("click", restart);
 
       /* ---------------- boot ---------------- */
-      if (!RM)
-        gsap.to("#start-badge", {
-          rotation: 2,
-          duration: 1.6,
+      if (!RM) {
+        gsap.to("#rays", {
+          rotation: 360,
+          duration: 120,
+          repeat: -1,
+          ease: "none",
+        });
+        gsap.to("#start-star", {
+          scale: 1.06,
+          duration: 1.4,
           yoyo: true,
           repeat: -1,
           ease: "sine.inOut",
         });
+      }
 
-      buildHearts();
       resize();
       cards.push(makeCard(0), makeCard(2.1));
 
@@ -1314,9 +1624,9 @@
           try {
             await Promise.race([
               Promise.all([
-                document.fonts.load('800 56px "Be Vietnam Pro"'),
-                document.fonts.load('700 36px "IBM Plex Mono"'),
-                document.fonts.load("104px Anton"),
+                document.fonts.load('800 60px "Be Vietnam Pro"'),
+                document.fonts.load('700 30px "IBM Plex Mono"'),
+                document.fonts.load("100px Anton"),
               ]),
               new Promise((r) => setTimeout(r, 1800)),
             ]);
@@ -1336,11 +1646,13 @@
           });
         });
 
-      /* redraw current card if fonts land late */
+      /* redraw textures if fonts land late */
       document.fonts.ready.then(() => {
-        if (playing && qi >= 0 && qi < QUESTIONS.length)
+        const fresh = makeBackTexture();
+        backTex.image = fresh.image;
+        backTex.needsUpdate = true;
+        if (playing && qi >= 0 && qi < N && !answered)
           drawFront(cards[cur], QUESTIONS[qi], qi);
-        else backTex.needsUpdate = true;
       });
     </script>
   </body>
